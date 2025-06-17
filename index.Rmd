@@ -1,0 +1,32 @@
+---
+title: "Welcome"
+---
+
+***
+
+## **Class Meetings**
+
+* TR 12:30pm - 1:45pm, WA 209B
+* [Click here to go to Office Hours (Tuesday 10am-11am, Thursday 10:30am-11am)](
+ https://appstate.zoom.us/j/98552357647?pwd=UUdIVXNTT2ZSNWpTQktkeW5ZSmsyZz09) - password: 416707
+ 
+***
+
+* The course syllabus  [`Syllabus`](STT4830F2022Syllabus.html) 
+
+*  [`Course Pacing`](Assignments.html) 
+
+* [`R Codes`](RcodesbyChapter.html)
+
+* [`Homework`](Homework.html) - *Homework is usually due every Thursday*
+
+
+* Click [`here`](https://forms.gle/8nnWUp1PznKmdS2P7) to record your attendance.
+
+ <!--* [Flow Control](./Rmarkdown/FlowControl.html)-->
+
+<!--* [The Bootstrap](./Rmarkdown/TheBootstrap.html)-->
+
+***
+
+
