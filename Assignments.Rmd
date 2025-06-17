@@ -14,7 +14,7 @@ output:
 
 **Week 1: (August 19 — August 23)**
 
-* Chapter 13: Linear Exponential Family  
+* Lesson 1: Linear Exponential Family  
   * Linear Exponential Family  
   * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ 13.1–13.3.2, 13.6
 
@@ -22,7 +22,7 @@ output:
 
 **Week 2: (August 26 — August 30)**
 
-* Chapter 13 Continued:  
+* Lesson 1 Continued:  
   * Link Functions, Tweedie Distribution  
   * **HW 1 Due** – Linear Exponential Family
 
@@ -30,9 +30,11 @@ output:
 
 **Week 3: (September 2 — September 6)**
 
-* Estimation, Overdispersion  
-* Chapter 11: Binomial Response  
+* Lesson 1 Continued:
+  * Estimation, Overdispersion  
+* Lesson 2: Binomial Response  
   * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ 11.1–11.2, 11.4–11.6  
+  
 * **Quiz 1**  
 * **HW 2 Due** – Link Functions
 
@@ -40,9 +42,10 @@ output:
 
 **Week 4: (September 9 — September 13)**
 
-* Chapter 11 Continued:  
+* Lesson 2 Continued:  
   * Binomial Response  
   * Nominal Response  
+  
 * **Quiz 2**  
 * **HW 3 Due** – Binomial Response
 
@@ -50,8 +53,10 @@ output:
 
 **Week 5: (September 16 — September 20)**
 
-* Nominal Response  
-* Ordinal Response  
+* Lesson 2 Continued: 
+  * Nominal Response  
+  * Ordinal Response  
+  
 * **Quiz 3**  
 * **HW 4 Due** – Nominal Response
 
@@ -59,9 +64,12 @@ output:
 
 **Week 6: (September 23 — September 27)**
 
-* Ordinal Response  
-* Chapter 12: Poisson Response  
+* Lesson 2 Continued: 
+  * Ordinal Response  
+  
+* Lesson 3: Poisson Response  
   * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ Chapter 12  
+  
 * **Quiz 4**  
 * **HW 5 Due** – Ordinal Response
 
@@ -69,8 +77,10 @@ output:
 
 **Week 7: (September 30 — October 4)**
 
-* Overdispersion & Negative Binomial Models  
-* Other Count Models  
+* Lesson 3 Continued:
+  * Overdispersion & Negative Binomial Models  
+  * Other Count Models  
+  
 * **Quiz 5**  
 * **HW 6 Due** – Poisson Models
 
@@ -78,7 +88,9 @@ output:
 
 **Week 8: (October 7 — October 11)**
 
-* Applied Examples  
+* Lesson 3 Continued:
+  * Applied Examples  
+  
 * **Quiz 6**  
 * **Exam 1** (Oct 9)  
   * *No Homework Due*
@@ -88,7 +100,10 @@ output:
 **Week 9: (October 14 — October 18)**
 
 * Fall Break (Oct 14)  
-* Decision Trees  
+
+* Lesson 4: Decision Trees  
+  * Decision Trees  
+
   * *Read Before Class:* _An Introduction to Statistical Learning_ Chapter 8  
   * *No Homework Due*
 
@@ -96,14 +111,18 @@ output:
 
 **Week 10: (October 21 — October 25)**
 
-* Decision Trees Continued  
+* Lesson 4 Continued:
+  * Decision Trees
+  
 * **HW 7 Due** – Decision Trees
 
 ***
 
 **Week 11: (October 28 — November 1)**
 
-* Decision Trees Continued  
+* Lesson 4 Continued:
+  * Decision Trees
+  
 * **Quiz 7**  
 * **HW 8 Due** – Decision Trees
 
@@ -112,8 +131,12 @@ output:
 **Week 12: (November 4 — November 8)**
 
 * **Project 1 Starts**  
-* Decision Trees  
-* Unsupervised Learning: PCA & Clustering  
+
+* Lesson 4 Continued:
+  * Decision Trees
+ 
+* Lesson 5: Unsupervised Learning: PCA & Clustering  
+
   * *Read Before Class:* _An Introduction to Statistical Learning_ Section 10.2  
 * **Quiz 8**
 
@@ -121,14 +144,18 @@ output:
 
 **Week 13: (November 11 — November 15)**
 
-* Unsupervised Learning: PCA & Clustering Continued  
+* Lesson 5 Continued:
+  * Unsupervised Learning: PCA & Clustering   
+  
 * **HW 9 Due** – PCA
 
 ***
 
 **Week 14: (November 18 — November 22)**
 
-* Unsupervised Learning: PCA & Clustering  
+* Lesson 5 Continued:
+  * Unsupervised Learning: PCA & Clustering Continued  
+  
   * *Read Before Class:* _An Introduction to Statistical Learning_ Section 10.3  
 * **Quiz 9**  
 * **HW 10 Due** – Clustering
