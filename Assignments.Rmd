@@ -10,8 +10,7 @@ output:
     css: "style.css"
 ---
 
-
-## Weekly Schedule
+***
 
 **Week 1: (August 19 — August 23)**
 
