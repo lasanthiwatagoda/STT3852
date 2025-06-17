@@ -14,11 +14,10 @@ title: "Welcome"
 
 * The course syllabus  [`Syllabus`](STT4830F2022Syllabus.html) 
 
-*  [`Course Pacing`](Assignments.html) 
+* [`Course Pacing`](Assignments.html) 
 
 * [`R Codes`](RcodesbyChapter.html)
 
-* [`Homework`](Homework.html) - *Homework is usually due every Thursday*
 
 
 * Click [`here`](https://forms.gle/8nnWUp1PznKmdS2P7) to record your attendance.
