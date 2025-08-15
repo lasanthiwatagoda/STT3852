@@ -22,7 +22,7 @@ title: "Welcome"
 
 ### **Course Information**
 
-* The course syllabus  [`Syllabus`](STT4830F2022Syllabus.html) 
+* The course syllabus  [`Syllabus`](STT3852SyllabusF2025.html) 
 
 * [`Course Pacing`](Assignments.html) 
 
