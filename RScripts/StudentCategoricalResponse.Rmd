@@ -1,0 +1,625 @@
+---
+title: "Categorical Response"
+author: "Dr. Lasanthi Watagoda"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: united
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+
+# Binomial Response
+
+## Simulated Data Example 1
+
+```{r comment=NA, message=FALSE}
+# Load libraries
+library(dplyr)
+library(data.table)
+# --------------------------
+# Step 1: Create example dataset
+# --------------------------
+set.seed(123)
+
+n <- 200
+students <- data.frame(
+  familiarR = rbinom(n, 1, 0.4),             # 0 = No, 1 = Yes
+  hoursStudy = rpois(n, lambda = 120),       # study hours
+  STAMscore = sample(5:9, n, replace = TRUE) # STAM scores
+)
+
+# True model (simulate outcome with known betas)
+eta <- -1.3 + 1*students$familiarR + 
+       0.01*students$hoursStudy +
+       ifelse(students$STAMscore <= 5, -2.5,
+              ifelse(students$STAMscore == 6, 0,
+                     ifelse(students$STAMscore == 7, 1.2, 1.6)))
+
+prob <- exp(eta) / (1 + exp(eta))
+students$passSRM <- rbinom(n, 1, prob)
+
+data.table(students)
+```
+
+Calculate the \textbf{odds} of passing Exam SRM for someone who:
+
+  * is not familiar with R,
+  * has studied the ASM manual for 150 hours,
+  * passed Exam STAM with a score of 7.
+
+
+## Step 1: Fit logistic regression model
+
+
+```{r comment=NA, message=FALSE, include=FALSE}
+logit_model <- glm(passSRM ~ familiarR + hoursStudy + factor(STAMscore),
+                   data = students,
+                   family = binomial(link = "logit"))
+
+summary(logit_model)
+```
+
+
+## Step 2: Predict for given scenario
+
+## Scenario: not familiar with R, 150 study hours, STAM score = 7
+
+```{r comment=NA, message=FALSE, include=FALSE}
+# Define new data
+new_student <- data.frame(familiarR = 0, hoursStudy = 150, STAMscore = 7)
+```
+
+1) Compute the Systematic component $\eta$ (eta)
+
+```{r comment=NA, message=FALSE, include=FALSE}
+eta_hat <- predict(logit_model, newdata = new_student, type = "link")
+```
+
+Systematic component (eta) is : `r eta_hat`
+
+2) Calculate the Odds of passing.
+
+```{r comment=NA, message=FALSE, include=FALSE}
+odds_hat <- exp(eta_hat)
+```
+
+Odds of passing: `r odds_hat`
+
+3) Calculate the Probability of passing
+
+```{r comment=NA, message=FALSE, include=FALSE}
+prob_hat <- predict(logit_model, newdata = new_student, type = "response")
+```
+
+
+Probability of passing: `r prob_hat`
+
+
+## Simulated data example 2
+
+An insurance company wants to estimate the probability of a claim based on driver characteristics and vehicle type. The response variable Claim is binary (1 = claim, 0 = no claim). Predictors include:
+
+Vehicle Body: Coupe, Roadster, Sedan, Station Wagon, Truck, Utility
+
+Driver Gender: Male, Female
+
+Area: A, B, C, D
+
+A probit regression model is fitted to the data:
+
+$$Claim ∼ VehicleBody + Gender + Area$$
+
+
+Tasks:
+
+1) Fit a GLM with a probit link using the provided dataset.
+
+2) Using the fitted model, calculate the estimated probability of a claim for the following scenarios:
+
+    a) Male driver, Roadster, Area A
+    b) Female driver, Sedan, Area B
+    c) Male driver, Utility, Area D
+
+3) Compare the results across the three cases. Which combination of characteristics results in the highest predicted probability of a claim? Which results in the lowest?
+
+4) Briefly interpret what these results mean in the context of insurance risk.
+
+```{r comment=NA, message=FALSE}
+## -------------------------------
+## Example: Probit GLM on Insurance Claims
+## ----------------------------- --
+
+## Load packages
+library(dplyr)
+
+set.seed(123)  # for reproducibility
+
+## Simulate a dataset
+n <- 500
+
+VehicleBody <- sample(c("Coupe", "Roadster", "Sedan",
+                        "StationWagon", "Truck", "Utility"),
+                      size = n, replace = TRUE)
+
+Gender <- sample(c("Male", "Female"),
+                 size = n, replace = TRUE)
+
+Area <- sample(c("A", "B", "C", "D"),
+               size = n, replace = TRUE)
+
+## True coefficients (like in your summary table)
+beta0 <- -1.5
+beta_vehicle <- c(Coupe = -0.9, Roadster = -1.0, Sedan = -1.2,
+                  StationWagon = -1.1, Truck = -1.1, Utility = -1.3)
+beta_gender <- c(Male = -0.03, Female = 0)
+beta_area <- c(A = 0, B = 0.1, C = 0.04, D = -0.1)
+
+## Linear predictor
+eta <- beta0 +
+  beta_vehicle[VehicleBody] +
+  beta_gender[Gender] +
+  beta_area[Area]
+
+## Probit link: probability = Phi(eta)
+p_claim <- pnorm(eta)
+
+## Generate binary response
+Claim <- rbinom(n, size = 1, prob = p_claim)
+
+## Put into a dataframe
+ins_data <- data.frame(Claim, VehicleBody, Gender, Area)
+data.table(ins_data)
+```
+
+## Step 1: Fit a probit GLM
+
+```{r comment=NA, message=FALSE, include=FALSE}
+## 1. Fit a probit GLM
+fit <- glm(Claim ~ VehicleBody + Gender + Area,
+           data = ins_data, family = binomial(link = "probit"))
+
+summary(fit)
+```
+
+## Step 2: Prediction: 
+
+```{r comment=NA, message=FALSE, include=FALSE}
+## Prediction examples
+new1 <- data.frame(Gender = "Male", VehicleBody = "Roadster", Area = "A")
+new2 <- data.frame(Gender = "Female", VehicleBody = "Sedan", Area = "B")
+new3 <- data.frame(Gender = "Male", VehicleBody = "Utility", Area = "D")
+
+predict(fit, newdata = new1, type = "response")  # Task 2a
+predict(fit, newdata = new2, type = "response")  # Task 2b
+predict(fit, newdata = new3, type = "response")  # Task 2c
+```
+
+### 2) Compare the results across the three cases
+
+- **Male, Roadster, Area A:** Predicted probability ≈ `0.073` (7.3%)  
+- **Female, Sedan, Area B:** Predicted probability ≈ `1.7 × 10⁻¹⁰` (essentially 0%)  
+- **Male, Utility, Area D:** Predicted probability ≈ `2.2 × 10⁻¹⁶` (essentially 0%)  
+
+The **highest predicted probability of a claim** occurs for the *Male, Roadster, Area A* combination.  
+The **lowest probability** occurs for the *Male, Utility, Area D* case, though both this and the *Female, Sedan, Area B* case are essentially zero.
+
+---
+
+### 3) Interpretation
+
+These results indicate that claim probabilities vary greatly across different driver and vehicle characteristics:
+
+- A **male driver with a roadster in Area A** has a **non-negligible risk** of a claim (about 7.3%), making this group higher risk.  
+- A **female driving a sedan in Area B** and a **male driving a utility in Area D** have **virtually zero probability** of a claim, suggesting they are very low risk.  
+
+In an insurance context, this means that premiums could be adjusted to reflect these differences. Higher-risk groups (e.g., males driving roadsters) might face higher premiums, while lower-risk groups (e.g., females driving sedans in certain areas) might benefit from lower premiums.
+
+
+# Nominal Response
+
+## Problem Statement
+
+An analyst wants to model which **type of car** a person buys. The response has three categories:
+
+- **Sedan** (reference/base category)  
+- **Van**  
+- **SUV**
+
+Explanatory variables:
+
+- **Gender**: Male, Female  
+- **AgeGroup**: Under25, 25to54, 55plus  
+
+A **nominal (multinomial) logistic regression** is fit with **Sedan** as the base outcome. That is, the model estimates separate log-odds equations for **Van vs Sedan** and **SUV vs Sedan**, each using the same predictors (Gender, AgeGroup).
+
+### Tasks
+
+1. Simulate a dataset and fit a multinomial logistic regression with base outcome = Sedan.  
+2. Using your fitted model, compute and interpret the **odds ratio** for **Gender = Female** in the **Van vs Sedan** equation.  
+3. Using your fitted model, compute the **predicted probability that a Male age 20 (AgeGroup = Under25) buys an SUV**.  
+
+---
+
+## 1. Data Simulation (Optional to Understand for our class) 
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(nnet)
+
+set.seed(2025)
+
+# Sample size
+n <- 1200
+
+# Simulate predictors
+Gender   <- sample(c("Male", "Female"), size = n, replace = TRUE, prob = c(0.5, 0.5))
+AgeGroup <- sample(c("Under25", "25to54", "55plus"),
+                   size = n, replace = TRUE, prob = c(0.25, 0.55, 0.20))
+
+# Set reference levels
+dat <- tibble(Gender, AgeGroup) %>%
+  mutate(
+    Gender = factor(Gender, levels = c("Male","Female")),
+    AgeGroup = factor(AgeGroup, levels = c("25to54","Under25","55plus"))
+  )
+
+# True coefficients (to generate outcomes)
+beta <- list(
+  Van = c("(Intercept)" = 0.10,
+          "GenderFemale" = -0.18,
+          "AgeGroupUnder25" = -0.11,
+          "AgeGroup55plus" = 0.06),
+  SUV = c("(Intercept)" = -0.02,
+          "GenderFemale" = -0.06,
+          "AgeGroupUnder25" = 0.18,
+          "AgeGroup55plus" = 0.04)
+)
+
+# Indicator variables
+X_GenderFemale <- as.numeric(dat$Gender == "Female")
+X_Under25      <- as.numeric(dat$AgeGroup == "Under25")
+X_55plus       <- as.numeric(dat$AgeGroup == "55plus")
+
+# Linear predictors
+eta_van <- beta$Van["(Intercept)"] +
+  beta$Van["GenderFemale"] * X_GenderFemale +
+  beta$Van["AgeGroupUnder25"] * X_Under25 +
+  beta$Van["AgeGroup55plus"] * X_55plus
+
+eta_suv <- beta$SUV["(Intercept)"] +
+  beta$SUV["GenderFemale"] * X_GenderFemale +
+  beta$SUV["AgeGroupUnder25"] * X_Under25 +
+  beta$SUV["AgeGroup55plus"] * X_55plus
+
+# Probabilities (softmax)
+exp_van <- exp(eta_van)
+exp_suv <- exp(eta_suv)
+denom   <- 1 + exp_van + exp_suv
+
+p_sedan <- 1 / denom
+p_van   <- exp_van / denom
+p_suv   <- exp_suv / denom
+
+# Generate outcome
+y <- mapply(function(ps, pv, pu) sample(c("Sedan","Van","SUV"), 1,
+                                        prob = c(ps, pv, pu)),
+            ps = p_sedan, pv = p_van, pu = p_suv)
+
+dat <- dat %>% mutate(CarType = factor(y, levels = c("Sedan","Van","SUV")))
+
+data.table(dat)
+```
+
+## Model Fitting
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# Fit multinomial logistic regression
+fit <- multinom(CarType ~ Gender + AgeGroup, data = dat, trace = FALSE)
+
+summary(fit)
+```
+
+## 2. Using your fitted model, compute and interpret the **odds ratio** for **Gender = Female** in the **Van vs Sedan** equation.  
+
+
+```{r comment=NA, message=FALSE, include=FALSE}
+coefs <- summary(fit)$coefficients
+beta_female_van <- coefs["Van","GenderFemale"]
+OR_female_van   <- exp(beta_female_van)
+
+beta_female_van
+OR_female_van
+```
+* Log-odds coefficient (Female, Van vs Sedan): `r round(beta_female_van, 3)`
+
+* Odds ratio: `r round(OR_female_van, 3)`
+
+**Interpretation**: Holding AgeGroup constant, the odds of buying a Van (vs Sedan) for Females are multiplied by `r round(OR_female_van, 3)` relative to Males.
+
+If the odds ratio is less than 1, it means females are less likely than males to buy a Van compared to a Sedan.
+
+
+## 3. Using your fitted model, compute the **predicted probability that a Male age 20 (AgeGroup = Under25) buys an SUV**.  
+
+```{r comment=NA, message=FALSE, include=FALSE}
+new_person <- data.frame(
+  Gender   = factor("Male", levels = c("Male","Female")),
+  AgeGroup = factor("Under25", levels = c("25to54","Under25","55plus"))
+)
+
+pred_probs <- predict(fit, newdata = new_person, type = "probs")
+pred_probs
+
+```
+
+* P(Sedan | Male, Under25): `r round(pred_probs[1], 4)`
+
+* P(Van | Male, Under25): `r round(pred_probs[2], 4)`
+
+* P(SUV | Male, Under25): `r round(pred_probs[3], 4)`
+
+**Interpretation**: Young males (Under25) are more likely to choose an SUV compared to a Sedan or Van, according to the fitted model.
+
+# Ordinal Response
+
+## Problem Statement
+
+A university surveys **course satisfaction** using an **ordinal** 3-level scale:
+
+| Category | Description   |
+|:-------:|:--------------|
+| 1       | Dissatisfied  |
+| 2       | Neutral       |
+| 3       | Satisfied     |
+
+A **cumulative proportional odds model** is used with a single explanatory variable `mode` (In-person vs. Telehealth). All other covariates are identical for the two groups.
+
+**Given target probabilities:**
+
+| Mode       | P(Y=1)   | P(Y=2)   | P(Y=3)   |
+|------------|----------:|---------:|---------:|
+| In-person  | 0.377541  | 0.440033 | 0.182426 |
+| Telehealth | 0.450166  | ?        | ?        |
+
+**Goal:** Determine the probability of **Neutral**, \( \Pr(Y=2) \), for the **Telehealth** group.
+
+---
+
+
+
+## Data Simulation (consistent with the worked example)
+
+We simulate data from a proportional-odds (logistic) model with **cutpoints** \(\alpha_1=-0.5\), \(\alpha_2=1.5\) for the baseline (In-person), and a **mode effect** \(\beta=0.3\) added to the cumulative logits for Telehealth. These reproduce the *In-person* probabilities and the *Telehealth* shift used in the solution.
+
+
+```{r  message=FALSE, warning=FALSE}
+set.seed(3852)
+library(dplyr)
+library(MASS)   # polr()
+library(tidyr)
+
+# Cutpoints for baseline (In-person)
+alpha1 <- -0.5
+alpha2 <-  1.5
+beta   <-  0.3   # proportional-odds shift for Telehealth
+
+# Helper: logistic CDF
+logistic <- function(x) 1/(1 + exp(-x))
+
+# Function to generate ordinal outcomes under proportional odds
+# P(Y<=1 | mode) = logistic(alpha1 + beta*mode)
+# P(Y<=2 | mode) = logistic(alpha2 + beta*mode)
+# Then derive category probabilities
+r_ord <- function(n, mode){
+  eta1 <- alpha1 + beta*mode
+  eta2 <- alpha2 + beta*mode
+  p_le1 <- logistic(eta1)
+  p_le2 <- logistic(eta2)
+  p1 <- p_le1
+  p2 <- p_le2 - p_le1
+  p3 <- 1 - p_le2
+  # sample categories 1,2,3
+  draws <- apply(cbind(p1, p2, p3), 1, function(pp) sample(1:3, size=1, prob=pp))
+  factor(draws, levels = 1:3, labels = c("1","2","3"))
+}
+
+# Simulate data
+n_in   <- 5000
+n_tele <- 5000
+dat_in <- tibble(mode = factor(rep("In-person", n_in), levels = c("In-person","Telehealth")),
+                 mode_num = 0)
+dat_te <- tibble(mode = factor(rep("Telehealth", n_tele), levels = c("In-person","Telehealth")),
+                 mode_num = 1)
+
+dat <- bind_rows(dat_in, dat_te) %>%
+  mutate(Y = r_ord(n = n(), mode = mode_num))
+
+data.table(dat)
+
+# Check empirical probabilities to verify target structure (large n -> close)
+emp <- dat %>% count(mode, Y) %>% group_by(mode) %>% mutate(p = n/sum(n))
+data.table(emp)
+```
+
+Fit the Cumulative Proportional Odds Model
+We fit an ordinal logistic regression (proportional odds) with MASS::polr, using mode as the single predictor and category 1 < 2 < 3 order.
+
+
+```{r  message=FALSE, warning=FALSE, include=FALSE}
+
+# Fit proportional-odds model (logistic link)
+fit <- polr(Y ~ mode, data = dat, Hess = TRUE, method = "logistic")
+summary(fit)
+
+# Extract coefficients and cutpoints
+co <- coef(fit)          # slope(s); here, modeTelehealth
+ct <- fit$zeta           # cutpoints (Intercepts in polr)
+co
+ct
+```
+
+## Compute Pr(Y=2∣Telehealth) from the fitted model
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+new_tele <- data.frame(mode = factor("Telehealth", levels = c("In-person","Telehealth")))
+new_in   <- data.frame(mode = factor("In-person",  levels = c("In-person","Telehealth")))
+
+# Predicted probabilities for each category
+p_tele <- predict(fit, newdata = new_tele, type = "probs")
+p_in   <- predict(fit, newdata = new_in,   type = "probs")
+
+p_in
+p_tele
+
+# Extract P(Y=2 | Telehealth)
+p2_tele <- as.numeric(p_tele["2"])
+p2_tele
+
+```
+# Poisson Response
+
+## Example 1 — Number of Cars (Poisson, log link)
+
+**Response:** Number of cars  
+**Predictors:** \(\ln(\text{Income})\) (continuous), **Family size** (categorical: 1–2, 3–4, 5+)  
+**Target coefficients (for data generation):**  
+\(\beta_0 = 0.186\), \(\beta_{\ln(\text{Income})}=0.009\),  
+\(\beta_{\text{Fam:1–2}}=0\) (reference), \(\beta_{\text{Fam:3–4}}=0.137\), \(\beta_{\text{Fam:5+}}=0.355\).
+
+**Task:** For \(\text{Income}=150{,}000\) and **Family size = 4 (i.e., 3–4 category)**, compute the **variance of \(Y\)** under the Poisson GLM.
+
+### Simulate Data & Fit Model
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+set.seed(4830)
+library(dplyr)
+
+# 1) Simulate predictors
+n <- 4000
+# Income: log-normal-ish spread centered around ~100k–150k
+log_income <- rnorm(n, mean = log(120000), sd = 0.5)
+Income     <- exp(log_income)
+
+FamilySize <- sample(c("1-2","3-4","5+"), size = n, replace = TRUE, prob = c(0.45, 0.4, 0.15))
+FamilySize <- factor(FamilySize, levels = c("1-2","3-4","5+"))  # set reference = 1-2
+
+# 2) True coefficients (match your worked example structure)
+b0   <- 0.186
+b_ln <- 0.009
+b_fs <- c("1-2" = 0.000, "3-4" = 0.137, "5+" = 0.355)
+
+eta_true <- b0 + b_ln*log(Income) + b_fs[as.character(FamilySize)]
+mu_true  <- exp(eta_true)
+
+# 3) Generate Poisson outcomes
+Cars <- rpois(n, lambda = mu_true)
+
+dat1 <- tibble(Cars, Income, logIncome = log(Income), FamilySize)
+data.table(dat1)
+```
+
+###  Fit Poisson GLM (log link)
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+# 4) Fit Poisson GLM (log link)
+fit1 <- glm(Cars ~ logIncome + FamilySize, data = dat1, family = poisson(link = "log"))
+
+summary(fit1)
+```
+
+Compute the Required Variance from the Fitted Model
+
+We want Income=150,000 and Family size = 4: category 3–4 in our coding.
+For a Poisson GLM, $Var(Y)=\mu$.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+new_case <- data.frame(
+  logIncome = log(150000),
+  FamilySize = factor("3-4", levels = c("1-2","3-4","5+"))
+)
+
+mu_hat <- predict(fit1, newdata = new_case, type = "response")
+mu_hat
+```
+
+Estimated mean $\hat{\mu}$: `r round(mu_hat, 3)`
+Estimated variance $Var(Y)$: `r round(mu_hat, 3)` (Poisson: Var = Mean)
+
+## Example 2 — Claim Count (Poisson Model)
+
+**Response Variable:** Claim Count  
+**Distribution:** Poisson  
+**Link Function:** Log  
+**Predictors:** Rating class (Standard vs Preferred), Miles driven (in thousands)
+
+| Parameter      | df | Estimate |
+|----------------|----|----------|
+| Intercept      |  1 | -1.512   |
+| Rating class   |    |          |
+|  * Standard     |  0 | 0.000    |
+|  * Preferred    |  1 | -0.301   |
+| Miles driven   |  1 | 0.020    |
+
+---
+
+### Problem
+
+Calculate the probability that a **Preferred driver** who drives **10,000 miles** (i.e., 10 units in thousands) submits at least one claim.
+
+---
+
+```{r message=FALSE, warning=FALSE}
+set.seed(3852)
+
+m <- 5000
+Rating <- sample(c("Standard","Preferred"), size = m, replace = TRUE, prob = c(0.6, 0.4))
+Rating <- factor(Rating, levels = c("Standard","Preferred"))  # ref = Standard
+
+# Miles in thousands (nonnegative, skewed)
+Miles <- pmax(0, rnorm(m, mean = 9, sd = 3))  # center near 9k–10k
+
+# True coefficients
+b0    <- -1.512
+b_pref<- -0.301
+b_mi  <-  0.020
+
+eta2_true <- b0 + (Rating == "Preferred")*b_pref + b_mi*Miles
+mu2_true  <- exp(eta2_true)
+
+Claims <- rpois(m, lambda = mu2_true)
+
+dat2 <- tibble(Claims, Rating, Miles)
+data.table(dat2)
+```
+
+
+#### Fit Poisson GLM
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# Fit Poisson GLM
+fit2 <- glm(Claims ~ Rating + Miles, data = dat2, family = poisson(link = "log"))
+
+summary(fit2)
+
+```
+
+Compute $Pr(Y \geq 1)$ for Preferred, 10,000 miles
+
+For Poisson $Y \sim Pois(\mu)$: $Pr(Y\geq1)=1−Pr(Y=0)=1−e^ {-\mu}$
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+new_driver <- data.frame(
+  Rating = factor("Preferred", levels = c("Standard","Preferred")),
+  Miles  = 10  # in thousands
+)
+
+mu2_hat <- predict(fit2, newdata = new_driver, type = "response")
+p_atleast1_hat <- 1 - exp(-mu2_hat)
+
+c(mu_hat = mu2_hat, P_at_least_1 = p_atleast1_hat)
+```
+
+Estimated mean claims $\hat{\mu}$: `r round(mu2_hat, 3)`
+Estimated Pr(Y\geq 1): `r round(p_atleast1_hat, 3)`
