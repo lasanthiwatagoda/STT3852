@@ -50,7 +50,7 @@ Calculate the \textbf{odds} of passing Exam SRM for someone who:
   * passed Exam STAM with a score of 7.
 
 
-## Step 1: Fit logistic regression model
+## 1) Fit logistic regression model
 
 
 ```{r comment=NA, message=FALSE, include=FALSE}
@@ -62,7 +62,7 @@ summary(logit_model)
 ```
 
 
-## Step 2: Predict for given scenario
+## 2) Predict for given scenario
 
 ## Scenario: not familiar with R, 150 study hours, STAM score = 7
 
@@ -173,7 +173,7 @@ ins_data <- data.frame(Claim, VehicleBody, Gender, Area)
 data.table(ins_data)
 ```
 
-## Step 1: Fit a probit GLM
+## 1) Fit a probit GLM
 
 ```{r comment=NA, message=FALSE, include=FALSE}
 ## 1. Fit a probit GLM
@@ -183,7 +183,7 @@ fit <- glm(Claim ~ VehicleBody + Gender + Area,
 summary(fit)
 ```
 
-## Step 2: Prediction: 
+## 2) Prediction: 
 
 ```{r comment=NA, message=FALSE, include=FALSE}
 ## Prediction examples
@@ -196,27 +196,33 @@ predict(fit, newdata = new2, type = "response")  # Task 2b
 predict(fit, newdata = new3, type = "response")  # Task 2c
 ```
 
-### 2) Compare the results across the three cases
+## 3) Compare the results across the three cases
 
+<!--
 - **Male, Roadster, Area A:** Predicted probability ≈ `0.073` (7.3%)  
 - **Female, Sedan, Area B:** Predicted probability ≈ `1.7 × 10⁻¹⁰` (essentially 0%)  
 - **Male, Utility, Area D:** Predicted probability ≈ `2.2 × 10⁻¹⁶` (essentially 0%)  
 
 The **highest predicted probability of a claim** occurs for the *Male, Roadster, Area A* combination.  
 The **lowest probability** occurs for the *Male, Utility, Area D* case, though both this and the *Female, Sedan, Area B* case are essentially zero.
+-->
 
----
 
-### 3) Interpretation
 
+## 4) Interpretation
+
+<!--
 These results indicate that claim probabilities vary greatly across different driver and vehicle characteristics:
 
 - A **male driver with a roadster in Area A** has a **non-negligible risk** of a claim (about 7.3%), making this group higher risk.  
 - A **female driving a sedan in Area B** and a **male driving a utility in Area D** have **virtually zero probability** of a claim, suggesting they are very low risk.  
 
 In an insurance context, this means that premiums could be adjusted to reflect these differences. Higher-risk groups (e.g., males driving roadsters) might face higher premiums, while lower-risk groups (e.g., females driving sedans in certain areas) might benefit from lower premiums.
+-->
 
+---
 
+<!--
 # Nominal Response
 
 ## Problem Statement
@@ -623,3 +629,4 @@ c(mu_hat = mu2_hat, P_at_least_1 = p_atleast1_hat)
 
 Estimated mean claims $\hat{\mu}$: `r round(mu2_hat, 3)`
 Estimated Pr(Y\geq 1): `r round(p_atleast1_hat, 3)`
+-->
