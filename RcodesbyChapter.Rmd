@@ -1,0 +1,13 @@
+---
+title: "R Scripts"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+***
+
+* [`Categorical Response R Script`](RScripts/StudentCategoricalResponse.html)
+
+***
