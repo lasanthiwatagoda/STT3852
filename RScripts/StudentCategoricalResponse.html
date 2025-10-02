@@ -11,7 +11,7 @@
 
 <meta name="author" content="Dr. Lasanthi Watagoda" />
 
-<meta name="date" content="2025-09-29" />
+<meta name="date" content="2025-10-01" />
 
 <title>Categorical Response</title>
 
@@ -1487,7 +1487,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Categorical Response</h1>
 <h4 class="author">Dr. Lasanthi Watagoda</h4>
-<h4 class="date">2025-09-29</h4>
+<h4 class="date">2025-10-01</h4>
 
 </div>
 
@@ -1677,106 +1677,117 @@ These results indicate that claim probabilities vary greatly across different dr
 In an insurance context, this means that premiums could be adjusted to reflect these differences. Higher-risk groups (e.g., males driving roadsters) might face higher premiums, while lower-risk groups (e.g., females driving sedans in certain areas) might benefit from lower premiums.
 -->
 <hr />
-<!--
-# Nominal Response
-
-## Problem Statement
-
-An analyst wants to model which **type of car** a person buys. The response has three categories:
-
-- **Sedan** (reference/base category)  
-- **Van**  
-- **SUV**
-
-Explanatory variables:
-
-- **Gender**: Male, Female  
-- **AgeGroup**: Under25, 25to54, 55plus  
-
-A **nominal (multinomial) logistic regression** is fit with **Sedan** as the base outcome. That is, the model estimates separate log-odds equations for **Van vs Sedan** and **SUV vs Sedan**, each using the same predictors (Gender, AgeGroup).
-
-### Tasks
-
-1. Simulate a dataset and fit a multinomial logistic regression with base outcome = Sedan.  
-2. Using your fitted model, compute and interpret the **odds ratio** for **Gender = Female** in the **Van vs Sedan** equation.  
-3. Using your fitted model, compute the **predicted probability that a Male age 20 (AgeGroup = Under25) buys an SUV**.  
-
----
-
-## 1. Data Simulation (Optional to Understand for our class) 
-
-
-``` r
-library(dplyr)
+</div>
+</div>
+<div id="nominal-response" class="section level1">
+<h1>Nominal Response</h1>
+<div id="problem-statement" class="section level2">
+<h2>Problem Statement</h2>
+<p>An analyst wants to model which <strong>type of car</strong> a person
+buys. The response has three categories:</p>
+<ul>
+<li><strong>Sedan</strong> (reference/base category)<br />
+</li>
+<li><strong>Van</strong><br />
+</li>
+<li><strong>SUV</strong></li>
+</ul>
+<p>Explanatory variables:</p>
+<ul>
+<li><strong>Gender</strong>: Male, Female<br />
+</li>
+<li><strong>AgeGroup</strong>: Under25, 25to54, 55plus</li>
+</ul>
+<p>A <strong>nominal (multinomial) logistic regression</strong> is fit
+with <strong>Sedan</strong> as the base outcome. That is, the model
+estimates separate log-odds equations for <strong>Van vs Sedan</strong>
+and <strong>SUV vs Sedan</strong>, each using the same predictors
+(Gender, AgeGroup).</p>
+<div id="tasks" class="section level3">
+<h3>Tasks</h3>
+<ol style="list-style-type: decimal">
+<li>Simulate a dataset and fit a multinomial logistic regression with
+base outcome = Sedan.<br />
+</li>
+<li>Using your fitted model, compute and interpret the <strong>odds
+ratio</strong> for <strong>Gender = Female</strong> in the <strong>Van
+vs Sedan</strong> equation.<br />
+</li>
+<li>Using your fitted model, compute the <strong>predicted probability
+that a Male age 20 (AgeGroup = Under25) buys an SUV</strong>.</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="data-simulation-optional-to-understand-for-our-class" class="section level2">
+<h2>1. Data Simulation (Optional to Understand for our class)</h2>
+<pre class="r"><code>library(dplyr)
 library(nnet)
 
 set.seed(2025)
 
 # Sample size
-n <- 1200
+n &lt;- 1200
 
 # Simulate predictors
-Gender   <- sample(c("Male", "Female"), size = n, replace = TRUE, prob = c(0.5, 0.5))
-AgeGroup <- sample(c("Under25", "25to54", "55plus"),
+Gender   &lt;- sample(c(&quot;Male&quot;, &quot;Female&quot;), size = n, replace = TRUE, prob = c(0.5, 0.5))
+AgeGroup &lt;- sample(c(&quot;Under25&quot;, &quot;25to54&quot;, &quot;55plus&quot;),
                    size = n, replace = TRUE, prob = c(0.25, 0.55, 0.20))
 
 # Set reference levels
-dat <- tibble(Gender, AgeGroup) %>%
+dat &lt;- tibble(Gender, AgeGroup) %&gt;%
   mutate(
-    Gender = factor(Gender, levels = c("Male","Female")),
-    AgeGroup = factor(AgeGroup, levels = c("25to54","Under25","55plus"))
+    Gender = factor(Gender, levels = c(&quot;Male&quot;,&quot;Female&quot;)),
+    AgeGroup = factor(AgeGroup, levels = c(&quot;25to54&quot;,&quot;Under25&quot;,&quot;55plus&quot;))
   )
 
 # True coefficients (to generate outcomes)
-beta <- list(
-  Van = c("(Intercept)" = 0.10,
-          "GenderFemale" = -0.18,
-          "AgeGroupUnder25" = -0.11,
-          "AgeGroup55plus" = 0.06),
-  SUV = c("(Intercept)" = -0.02,
-          "GenderFemale" = -0.06,
-          "AgeGroupUnder25" = 0.18,
-          "AgeGroup55plus" = 0.04)
+beta &lt;- list(
+  Van = c(&quot;(Intercept)&quot; = 0.10,
+          &quot;GenderFemale&quot; = -0.18,
+          &quot;AgeGroupUnder25&quot; = -0.11,
+          &quot;AgeGroup55plus&quot; = 0.06),
+  SUV = c(&quot;(Intercept)&quot; = -0.02,
+          &quot;GenderFemale&quot; = -0.06,
+          &quot;AgeGroupUnder25&quot; = 0.18,
+          &quot;AgeGroup55plus&quot; = 0.04)
 )
 
 # Indicator variables
-X_GenderFemale <- as.numeric(dat$Gender == "Female")
-X_Under25      <- as.numeric(dat$AgeGroup == "Under25")
-X_55plus       <- as.numeric(dat$AgeGroup == "55plus")
+X_GenderFemale &lt;- as.numeric(dat$Gender == &quot;Female&quot;)
+X_Under25      &lt;- as.numeric(dat$AgeGroup == &quot;Under25&quot;)
+X_55plus       &lt;- as.numeric(dat$AgeGroup == &quot;55plus&quot;)
 
 # Linear predictors
-eta_van <- beta$Van["(Intercept)"] +
-  beta$Van["GenderFemale"] * X_GenderFemale +
-  beta$Van["AgeGroupUnder25"] * X_Under25 +
-  beta$Van["AgeGroup55plus"] * X_55plus
+eta_van &lt;- beta$Van[&quot;(Intercept)&quot;] +
+  beta$Van[&quot;GenderFemale&quot;] * X_GenderFemale +
+  beta$Van[&quot;AgeGroupUnder25&quot;] * X_Under25 +
+  beta$Van[&quot;AgeGroup55plus&quot;] * X_55plus
 
-eta_suv <- beta$SUV["(Intercept)"] +
-  beta$SUV["GenderFemale"] * X_GenderFemale +
-  beta$SUV["AgeGroupUnder25"] * X_Under25 +
-  beta$SUV["AgeGroup55plus"] * X_55plus
+eta_suv &lt;- beta$SUV[&quot;(Intercept)&quot;] +
+  beta$SUV[&quot;GenderFemale&quot;] * X_GenderFemale +
+  beta$SUV[&quot;AgeGroupUnder25&quot;] * X_Under25 +
+  beta$SUV[&quot;AgeGroup55plus&quot;] * X_55plus
 
 # Probabilities (softmax)
-exp_van <- exp(eta_van)
-exp_suv <- exp(eta_suv)
-denom   <- 1 + exp_van + exp_suv
+exp_van &lt;- exp(eta_van)
+exp_suv &lt;- exp(eta_suv)
+denom   &lt;- 1 + exp_van + exp_suv
 
-p_sedan <- 1 / denom
-p_van   <- exp_van / denom
-p_suv   <- exp_suv / denom
+p_sedan &lt;- 1 / denom
+p_van   &lt;- exp_van / denom
+p_suv   &lt;- exp_suv / denom
 
 # Generate outcome
-y <- mapply(function(ps, pv, pu) sample(c("Sedan","Van","SUV"), 1,
+y &lt;- mapply(function(ps, pv, pu) sample(c(&quot;Sedan&quot;,&quot;Van&quot;,&quot;SUV&quot;), 1,
                                         prob = c(ps, pv, pu)),
             ps = p_sedan, pv = p_van, pu = p_suv)
 
-dat <- dat %>% mutate(CarType = factor(y, levels = c("Sedan","Van","SUV")))
+dat &lt;- dat %&gt;% mutate(CarType = factor(y, levels = c(&quot;Sedan&quot;,&quot;Van&quot;,&quot;SUV&quot;)))
 
-data.table(dat)
-```
-
-```
-##       Gender AgeGroup CarType
-##       <fctr>   <fctr>  <fctr>
+data.table(dat)</code></pre>
+<pre><code>##       Gender AgeGroup CarType
+##       &lt;fctr&gt;   &lt;fctr&gt;  &lt;fctr&gt;
 ##    1:   Male   25to54   Sedan
 ##    2: Female  Under25     SUV
 ##    3:   Male   25to54   Sedan
@@ -1787,30 +1798,31 @@ data.table(dat)
 ## 1197:   Male  Under25   Sedan
 ## 1198:   Male   25to54   Sedan
 ## 1199: Female  Under25   Sedan
-## 1200: Female   25to54   Sedan
-```
-
-## Model Fitting
-
-
-
-## 2. Using your fitted model, compute and interpret the **odds ratio** for **Gender = Female** in the **Van vs Sedan** equation.  
-
-
-
-* Log-odds coefficient (Female, Van vs Sedan): -0.281
-
-* Odds ratio: 0.755
-
-**Interpretation**: Holding AgeGroup constant, the odds of buying a Van (vs Sedan) for Females are multiplied by 0.755 relative to Males.
+## 1200: Female   25to54   Sedan</code></pre>
+</div>
+<div id="model-fitting" class="section level2">
+<h2>Model Fitting</h2>
+</div>
+<div id="using-your-fitted-model-compute-and-interpret-the-odds-ratio-for-gender-female-in-the-van-vs-sedan-equation." class="section level2">
+<h2>2. Using your fitted model, compute and interpret the <strong>odds
+ratio</strong> for <strong>Gender = Female</strong> in the <strong>Van
+vs Sedan</strong> equation.</h2>
+<ul>
+<li><p>Log-odds coefficient (Female, Van vs Sedan): -0.281</p></li>
+<li><p>Odds ratio: 0.755</p></li>
+</ul>
+<p><strong>Interpretation</strong>:</p>
+<!--
+Holding AgeGroup constant, the odds of buying a Van (vs Sedan) for Females are multiplied by 0.755 relative to Males.
 
 If the odds ratio is less than 1, it means females are less likely than males to buy a Van compared to a Sedan.
-
-
-## 3. Using your fitted model, compute the **predicted probability that a Male age 20 (AgeGroup = Under25) buys an SUV**.  
-
-
-
+-->
+</div>
+<div id="using-your-fitted-model-compute-the-predicted-probability-that-a-male-age-20-agegroup-under25-buys-an-suv." class="section level2">
+<h2>3. Using your fitted model, compute the <strong>predicted
+probability that a Male age 20 (AgeGroup = Under25) buys an
+SUV</strong>.</h2>
+<!--
 * P(Sedan | Male, Under25): 0.323
 
 * P(Van | Male, Under25): 0.3233
@@ -1819,87 +1831,123 @@ If the odds ratio is less than 1, it means females are less likely than males to
 
 **Interpretation**: Young males (Under25) are more likely to choose an SUV compared to a Sedan or Van, according to the fitted model.
 
-# Ordinal Response
-
-## Problem Statement
-
-A university surveys **course satisfaction** using an **ordinal** 3-level scale:
-
-| Category | Description   |
-|:-------:|:--------------|
-| 1       | Dissatisfied  |
-| 2       | Neutral       |
-| 3       | Satisfied     |
-
-A **cumulative proportional odds model** is used with a single explanatory variable `mode` (In-person vs. Telehealth). All other covariates are identical for the two groups.
-
-**Given target probabilities:**
-
-| Mode       | P(Y=1)   | P(Y=2)   | P(Y=3)   |
-|------------|----------:|---------:|---------:|
-| In-person  | 0.377541  | 0.440033 | 0.182426 |
-| Telehealth | 0.450166  | ?        | ?        |
-
-**Goal:** Determine the probability of **Neutral**, \( \Pr(Y=2) \), for the **Telehealth** group.
-
----
-
-
-
-## Data Simulation (consistent with the worked example)
-
-We simulate data from a proportional-odds (logistic) model with **cutpoints** \(\alpha_1=-0.5\), \(\alpha_2=1.5\) for the baseline (In-person), and a **mode effect** \(\beta=0.3\) added to the cumulative logits for Telehealth. These reproduce the *In-person* probabilities and the *Telehealth* shift used in the solution.
-
-
-
-``` r
-set.seed(3852)
+-->
+<hr />
+</div>
+</div>
+<div id="ordinal-response" class="section level1">
+<h1>Ordinal Response</h1>
+<div id="problem-statement-1" class="section level2">
+<h2>Problem Statement</h2>
+<p>A university surveys <strong>course satisfaction</strong> using an
+<strong>ordinal</strong> 3-level scale:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Category</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="left">Dissatisfied</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="left">Neutral</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="left">Satisfied</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>cumulative proportional odds model</strong> is used with a
+single explanatory variable <code>mode</code> (In-person
+vs. Telehealth). All other covariates are identical for the two
+groups.</p>
+<p><strong>Given target probabilities:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th align="right">P(Y=1)</th>
+<th align="right">P(Y=2)</th>
+<th align="right">P(Y=3)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>In-person</td>
+<td align="right">0.377541</td>
+<td align="right">0.440033</td>
+<td align="right">0.182426</td>
+</tr>
+<tr class="even">
+<td>Telehealth</td>
+<td align="right">0.450166</td>
+<td align="right">?</td>
+<td align="right">?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Goal:</strong> Determine the probability of
+<strong>Neutral</strong>, <span class="math inline">\(\Pr(Y=2)\)</span>,
+for the <strong>Telehealth</strong> group.</p>
+<hr />
+</div>
+<div id="data-simulation-consistent-with-the-worked-example" class="section level2">
+<h2>Data Simulation (consistent with the worked example)</h2>
+<p>We simulate data from a proportional-odds (logistic) model with
+<strong>cutpoints</strong> <span class="math inline">\(\alpha_1=-0.5\)</span>, <span class="math inline">\(\alpha_2=1.5\)</span> for the baseline
+(In-person), and a <strong>mode effect</strong> <span class="math inline">\(\beta=0.3\)</span> added to the cumulative logits
+for Telehealth. These reproduce the <em>In-person</em> probabilities and
+the <em>Telehealth</em> shift used in the solution.</p>
+<pre class="r"><code>set.seed(3852)
 library(dplyr)
 library(MASS)   # polr()
 library(tidyr)
 
 # Cutpoints for baseline (In-person)
-alpha1 <- -0.5
-alpha2 <-  1.5
-beta   <-  0.3   # proportional-odds shift for Telehealth
+alpha1 &lt;- -0.5
+alpha2 &lt;-  1.5
+beta   &lt;-  0.3   # proportional-odds shift for Telehealth
 
 # Helper: logistic CDF
-logistic <- function(x) 1/(1 + exp(-x))
+logistic &lt;- function(x) 1/(1 + exp(-x))
 
 # Function to generate ordinal outcomes under proportional odds
-# P(Y<=1 | mode) = logistic(alpha1 + beta*mode)
-# P(Y<=2 | mode) = logistic(alpha2 + beta*mode)
+# P(Y&lt;=1 | mode) = logistic(alpha1 + beta*mode)
+# P(Y&lt;=2 | mode) = logistic(alpha2 + beta*mode)
 # Then derive category probabilities
-r_ord <- function(n, mode){
-  eta1 <- alpha1 + beta*mode
-  eta2 <- alpha2 + beta*mode
-  p_le1 <- logistic(eta1)
-  p_le2 <- logistic(eta2)
-  p1 <- p_le1
-  p2 <- p_le2 - p_le1
-  p3 <- 1 - p_le2
+r_ord &lt;- function(n, mode){
+  eta1 &lt;- alpha1 + beta*mode
+  eta2 &lt;- alpha2 + beta*mode
+  p_le1 &lt;- logistic(eta1)
+  p_le2 &lt;- logistic(eta2)
+  p1 &lt;- p_le1
+  p2 &lt;- p_le2 - p_le1
+  p3 &lt;- 1 - p_le2
   # sample categories 1,2,3
-  draws <- apply(cbind(p1, p2, p3), 1, function(pp) sample(1:3, size=1, prob=pp))
-  factor(draws, levels = 1:3, labels = c("1","2","3"))
+  draws &lt;- apply(cbind(p1, p2, p3), 1, function(pp) sample(1:3, size=1, prob=pp))
+  factor(draws, levels = 1:3, labels = c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;))
 }
 
 # Simulate data
-n_in   <- 5000
-n_tele <- 5000
-dat_in <- tibble(mode = factor(rep("In-person", n_in), levels = c("In-person","Telehealth")),
+n_in   &lt;- 5000
+n_tele &lt;- 5000
+dat_in &lt;- tibble(mode = factor(rep(&quot;In-person&quot;, n_in), levels = c(&quot;In-person&quot;,&quot;Telehealth&quot;)),
                  mode_num = 0)
-dat_te <- tibble(mode = factor(rep("Telehealth", n_tele), levels = c("In-person","Telehealth")),
+dat_te &lt;- tibble(mode = factor(rep(&quot;Telehealth&quot;, n_tele), levels = c(&quot;In-person&quot;,&quot;Telehealth&quot;)),
                  mode_num = 1)
 
-dat <- bind_rows(dat_in, dat_te) %>%
+dat &lt;- bind_rows(dat_in, dat_te) %&gt;%
   mutate(Y = r_ord(n = n(), mode = mode_num))
 
-data.table(dat)
-```
-
-```
-##              mode mode_num      Y
-##            <fctr>    <num> <fctr>
+data.table(dat)</code></pre>
+<pre><code>##              mode mode_num      Y
+##            &lt;fctr&gt;    &lt;num&gt; &lt;fctr&gt;
 ##     1:  In-person        0      2
 ##     2:  In-person        0      2
 ##     3:  In-person        0      2
@@ -1910,116 +1958,170 @@ data.table(dat)
 ##  9997: Telehealth        1      1
 ##  9998: Telehealth        1      2
 ##  9999: Telehealth        1      2
-## 10000: Telehealth        1      1
-```
-
-``` r
-# Check empirical probabilities to verify target structure (large n -> close)
-emp <- dat %>% count(mode, Y) %>% group_by(mode) %>% mutate(p = n/sum(n))
-data.table(emp)
-```
-
-```
-##          mode      Y     n      p
-##        <fctr> <fctr> <int>  <num>
+## 10000: Telehealth        1      1</code></pre>
+<pre class="r"><code># Check empirical probabilities to verify target structure (large n -&gt; close)
+emp &lt;- dat %&gt;% count(mode, Y) %&gt;% group_by(mode) %&gt;% mutate(p = n/sum(n))
+data.table(emp)</code></pre>
+<pre><code>##          mode      Y     n      p
+##        &lt;fctr&gt; &lt;fctr&gt; &lt;int&gt;  &lt;num&gt;
 ## 1:  In-person      1  1890 0.3780
 ## 2:  In-person      2  2202 0.4404
 ## 3:  In-person      3   908 0.1816
 ## 4: Telehealth      1  2261 0.4522
 ## 5: Telehealth      2  2009 0.4018
-## 6: Telehealth      3   730 0.1460
-```
+## 6: Telehealth      3   730 0.1460</code></pre>
+</div>
+<div id="fit-the-cumulative-proportional-odds-model" class="section level2">
+<h2>Fit the Cumulative Proportional Odds Model</h2>
+<p>We fit an ordinal logistic regression (proportional odds) with
+MASS::polr, using mode as the single predictor and category 1 &lt; 2
+&lt; 3 order.</p>
+</div>
+<div id="compute-pry2telehealth-from-the-fitted-model" class="section level2">
+<h2>Compute <span class="math inline">\(Pr(Y=2∣Telehealth)\)</span> from
+the fitted model</h2>
+<hr />
+</div>
+</div>
+<div id="poisson-response" class="section level1">
+<h1>Poisson Response</h1>
+<div id="example-1-number-of-cars-poisson-log-link" class="section level2">
+<h2>Example 1 — Number of Cars (Poisson, log link)</h2>
+<p><strong>Response:</strong> Number of cars<br />
+<strong>Predictors:</strong> <span class="math inline">\(\ln(\text{Income})\)</span> (continuous),
+<strong>Family size</strong> (categorical: 1–2, 3–4, 5+)<br />
+<strong>Target coefficients (for data generation):</strong><br />
+<span class="math inline">\(\beta_0 = 0.186\)</span>, <span class="math inline">\(\beta_{\ln(\text{Income})}=0.009\)</span>,<br />
+<span class="math inline">\(\beta_{\text{Fam:1–2}}=0\)</span>
+(reference), <span class="math inline">\(\beta_{\text{Fam:3–4}}=0.137\)</span>, <span class="math inline">\(\beta_{\text{Fam:5+}}=0.355\)</span>.</p>
+<p><strong>Task:</strong> For <span class="math inline">\(\text{Income}=150{,}000\)</span> and
+<strong>Family size = 4 (i.e., 3–4 category)</strong>, compute the
+<strong>variance of <span class="math inline">\(Y\)</span></strong>
+under the Poisson GLM.</p>
+<div id="simulate-data-fit-model" class="section level3">
+<h3>Simulate Data &amp; Fit Model</h3>
+<pre class="r"><code>set.seed(4830)
+library(dplyr)
 
-Fit the Cumulative Proportional Odds Model
-We fit an ordinal logistic regression (proportional odds) with MASS::polr, using mode as the single predictor and category 1 < 2 < 3 order.
+# 1) Simulate predictors
+n &lt;- 4000
+# Income: log-normal-ish spread centered around ~100k–150k
+log_income &lt;- rnorm(n, mean = log(120000), sd = 0.5)
+Income     &lt;- exp(log_income)
 
+FamilySize &lt;- sample(c(&quot;1-2&quot;,&quot;3-4&quot;,&quot;5+&quot;), size = n, replace = TRUE, prob = c(0.45, 0.4, 0.15))
+FamilySize &lt;- factor(FamilySize, levels = c(&quot;1-2&quot;,&quot;3-4&quot;,&quot;5+&quot;))  # set reference = 1-2
 
+# 2) True coefficients (match your worked example structure)
+b0   &lt;- 0.186
+b_ln &lt;- 0.009
+b_fs &lt;- c(&quot;1-2&quot; = 0.000, &quot;3-4&quot; = 0.137, &quot;5+&quot; = 0.355)
 
+eta_true &lt;- b0 + b_ln*log(Income) + b_fs[as.character(FamilySize)]
+mu_true  &lt;- exp(eta_true)
 
-## Compute Pr(Y=2∣Telehealth) from the fitted model
+# 3) Generate Poisson outcomes
+Cars &lt;- rpois(n, lambda = mu_true)
 
+dat1 &lt;- tibble(Cars, Income, logIncome = log(Income), FamilySize)
+data.table(dat1)</code></pre>
+<pre><code>##        Cars    Income logIncome FamilySize
+##       &lt;int&gt;     &lt;num&gt;     &lt;num&gt;     &lt;fctr&gt;
+##    1:     1  71200.36  11.17325        3-4
+##    2:     3  75520.50  11.23216        3-4
+##    3:     3 115753.95  11.65922        1-2
+##    4:     3 126596.82  11.74876        1-2
+##    5:     1  92295.18  11.43275        1-2
+##   ---                                     
+## 3996:     2  61437.72  11.02578        1-2
+## 3997:     0  77520.67  11.25830        3-4
+## 3998:     1  47426.84  10.76694        3-4
+## 3999:     3 138898.78  11.84150         5+
+## 4000:     0 229913.72  12.34546         5+</code></pre>
+</div>
+<div id="fit-poisson-glm-log-link" class="section level3">
+<h3>Fit Poisson GLM (log link)</h3>
+<p>Compute the Required Variance from the Fitted Model</p>
+<p>We want Income=150,000 and Family size = 4: category 3–4 in our
+coding. For a Poisson GLM, <span class="math inline">\(Var(Y)=\mu\)</span>.</p>
+<p>Estimated mean <span class="math inline">\(\hat{\mu}\)</span>: 1.598
+Estimated variance <span class="math inline">\(Var(Y)\)</span>: 1.598
+(Poisson: Var = Mean)</p>
+</div>
+</div>
+<div id="example-2-claim-count-poisson-model" class="section level2">
+<h2>Example 2 — Claim Count (Poisson Model)</h2>
+<p><strong>Response Variable:</strong> Claim Count<br />
+<strong>Distribution:</strong> Poisson<br />
+<strong>Link Function:</strong> Log<br />
+<strong>Predictors:</strong> Rating class (Standard vs Preferred), Miles
+driven (in thousands)</p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>df</th>
+<th>Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>1</td>
+<td>-1.512</td>
+</tr>
+<tr class="even">
+<td>Rating class</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>* Standard</td>
+<td>0</td>
+<td>0.000</td>
+</tr>
+<tr class="even">
+<td>* Preferred</td>
+<td>1</td>
+<td>-0.301</td>
+</tr>
+<tr class="odd">
+<td>Miles driven</td>
+<td>1</td>
+<td>0.020</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="problem" class="section level3">
+<h3>Problem</h3>
+<p>Calculate the probability that a <strong>Preferred driver</strong>
+who drives <strong>10,000 miles</strong> (i.e., 10 units in thousands)
+submits at least one claim.</p>
+<hr />
+<pre class="r"><code>set.seed(3852)
 
-# Poisson Response
-
-## Example 1 — Number of Cars (Poisson, log link)
-
-**Response:** Number of cars  
-**Predictors:** \(\ln(\text{Income})\) (continuous), **Family size** (categorical: 1–2, 3–4, 5+)  
-**Target coefficients (for data generation):**  
-\(\beta_0 = 0.186\), \(\beta_{\ln(\text{Income})}=0.009\),  
-\(\beta_{\text{Fam:1–2}}=0\) (reference), \(\beta_{\text{Fam:3–4}}=0.137\), \(\beta_{\text{Fam:5+}}=0.355\).
-
-**Task:** For \(\text{Income}=150{,}000\) and **Family size = 4 (i.e., 3–4 category)**, compute the **variance of \(Y\)** under the Poisson GLM.
-
-### Simulate Data & Fit Model
-
-
-
-###  Fit Poisson GLM (log link)
-
-
-
-Compute the Required Variance from the Fitted Model
-
-We want Income=150,000 and Family size = 4: category 3–4 in our coding.
-For a Poisson GLM, $Var(Y)=\mu$.
-
-
-
-Estimated mean $\hat{\mu}$: 1.598
-Estimated variance $Var(Y)$: 1.598 (Poisson: Var = Mean)
-
-## Example 2 — Claim Count (Poisson Model)
-
-**Response Variable:** Claim Count  
-**Distribution:** Poisson  
-**Link Function:** Log  
-**Predictors:** Rating class (Standard vs Preferred), Miles driven (in thousands)
-
-| Parameter      | df | Estimate |
-|----------------|----|----------|
-| Intercept      |  1 | -1.512   |
-| Rating class   |    |          |
-|  * Standard     |  0 | 0.000    |
-|  * Preferred    |  1 | -0.301   |
-| Miles driven   |  1 | 0.020    |
-
----
-
-### Problem
-
-Calculate the probability that a **Preferred driver** who drives **10,000 miles** (i.e., 10 units in thousands) submits at least one claim.
-
----
-
-
-``` r
-set.seed(3852)
-
-m <- 5000
-Rating <- sample(c("Standard","Preferred"), size = m, replace = TRUE, prob = c(0.6, 0.4))
-Rating <- factor(Rating, levels = c("Standard","Preferred"))  # ref = Standard
+m &lt;- 5000
+Rating &lt;- sample(c(&quot;Standard&quot;,&quot;Preferred&quot;), size = m, replace = TRUE, prob = c(0.6, 0.4))
+Rating &lt;- factor(Rating, levels = c(&quot;Standard&quot;,&quot;Preferred&quot;))  # ref = Standard
 
 # Miles in thousands (nonnegative, skewed)
-Miles <- pmax(0, rnorm(m, mean = 9, sd = 3))  # center near 9k–10k
+Miles &lt;- pmax(0, rnorm(m, mean = 9, sd = 3))  # center near 9k–10k
 
 # True coefficients
-b0    <- -1.512
-b_pref<- -0.301
-b_mi  <-  0.020
+b0    &lt;- -1.512
+b_pref&lt;- -0.301
+b_mi  &lt;-  0.020
 
-eta2_true <- b0 + (Rating == "Preferred")*b_pref + b_mi*Miles
-mu2_true  <- exp(eta2_true)
+eta2_true &lt;- b0 + (Rating == &quot;Preferred&quot;)*b_pref + b_mi*Miles
+mu2_true  &lt;- exp(eta2_true)
 
-Claims <- rpois(m, lambda = mu2_true)
+Claims &lt;- rpois(m, lambda = mu2_true)
 
-dat2 <- tibble(Claims, Rating, Miles)
-data.table(dat2)
-```
-
-```
-##       Claims    Rating     Miles
-##        <int>    <fctr>     <num>
+dat2 &lt;- tibble(Claims, Rating, Miles)
+data.table(dat2)</code></pre>
+<pre><code>##       Claims    Rating     Miles
+##        &lt;int&gt;    &lt;fctr&gt;     &lt;num&gt;
 ##    1:      0  Standard 12.539087
 ##    2:      0  Standard  5.419065
 ##    3:      0  Standard  9.173771
@@ -2030,23 +2132,18 @@ data.table(dat2)
 ## 4997:      2 Preferred 14.172462
 ## 4998:      2 Preferred 11.584201
 ## 4999:      1 Preferred 11.161610
-## 5000:      0  Standard  2.603598
-```
-
-
-#### Fit Poisson GLM
-
-
-
-Compute $Pr(Y \geq 1)$ for Preferred, 10,000 miles
-
-For Poisson $Y \sim Pois(\mu)$: $Pr(Y\geq1)=1−Pr(Y=0)=1−e^ {-\mu}$
-
-
-
-Estimated mean claims $\hat{\mu}$: 0.182
-Estimated Pr(Y\geq 1): 0.167
--->
+## 5000:      0  Standard  2.603598</code></pre>
+<div id="fit-poisson-glm" class="section level4">
+<h4>Fit Poisson GLM</h4>
+<p>Compute <span class="math inline">\(Pr(Y \geq 1)\)</span> for
+Preferred, 10,000 miles</p>
+<p>For Poisson <span class="math inline">\(Y \sim Pois(\mu)\)</span>:
+<span class="math inline">\(Pr(Y\geq1)=1−Pr(Y=0)=1−e^
+{-\mu}\)</span></p>
+<p>Estimated mean claims <span class="math inline">\(\hat{\mu}\)</span>:
+0.182 Estimated Pr(Y): 0.167</p>
+</div>
+</div>
 </div>
 </div>
 

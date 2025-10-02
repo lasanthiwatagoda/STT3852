@@ -495,7 +495,7 @@ p2_tele
 ```{r, message=FALSE, warning=FALSE}
 set.seed(4830)
 library(dplyr)
-
+library(data.table)
 # 1) Simulate predictors
 n <- 4000
 # Income: log-normal-ish spread centered around ~100k–150k
@@ -519,6 +519,7 @@ Cars <- rpois(n, lambda = mu_true)
 dat1 <- tibble(Cars, Income, logIncome = log(Income), FamilySize)
 data.table(dat1)
 ```
+
 
 ###  Fit Poisson GLM (log link)
 

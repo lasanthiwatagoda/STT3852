@@ -222,7 +222,7 @@ In an insurance context, this means that premiums could be adjusted to reflect t
 
 ---
 
-<!--
+
 # Nominal Response
 
 ## Problem Statement
@@ -338,14 +338,18 @@ OR_female_van   <- exp(beta_female_van)
 beta_female_van
 OR_female_van
 ```
+
 * Log-odds coefficient (Female, Van vs Sedan): `r round(beta_female_van, 3)`
 
 * Odds ratio: `r round(OR_female_van, 3)`
 
-**Interpretation**: Holding AgeGroup constant, the odds of buying a Van (vs Sedan) for Females are multiplied by `r round(OR_female_van, 3)` relative to Males.
+**Interpretation**: 
+
+<!--
+Holding AgeGroup constant, the odds of buying a Van (vs Sedan) for Females are multiplied by `r round(OR_female_van, 3)` relative to Males.
 
 If the odds ratio is less than 1, it means females are less likely than males to buy a Van compared to a Sedan.
-
+-->
 
 ## 3. Using your fitted model, compute the **predicted probability that a Male age 20 (AgeGroup = Under25) buys an SUV**.  
 
@@ -360,6 +364,7 @@ pred_probs
 
 ```
 
+<!--
 * P(Sedan | Male, Under25): `r round(pred_probs[1], 4)`
 
 * P(Van | Male, Under25): `r round(pred_probs[2], 4)`
@@ -367,6 +372,10 @@ pred_probs
 * P(SUV | Male, Under25): `r round(pred_probs[3], 4)`
 
 **Interpretation**: Young males (Under25) are more likely to choose an SUV compared to a Sedan or Van, according to the fitted model.
+
+-->
+
+---
 
 # Ordinal Response
 
@@ -449,7 +458,8 @@ emp <- dat %>% count(mode, Y) %>% group_by(mode) %>% mutate(p = n/sum(n))
 data.table(emp)
 ```
 
-Fit the Cumulative Proportional Odds Model
+## Fit the Cumulative Proportional Odds Model
+
 We fit an ordinal logistic regression (proportional odds) with MASS::polr, using mode as the single predictor and category 1 < 2 < 3 order.
 
 
@@ -466,7 +476,7 @@ co
 ct
 ```
 
-## Compute Pr(Y=2∣Telehealth) from the fitted model
+## Compute $Pr(Y=2∣Telehealth)$ from the fitted model
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 new_tele <- data.frame(mode = factor("Telehealth", levels = c("In-person","Telehealth")))
@@ -484,6 +494,9 @@ p2_tele <- as.numeric(p_tele["2"])
 p2_tele
 
 ```
+
+---
+
 # Poisson Response
 
 ## Example 1 — Number of Cars (Poisson, log link)
@@ -498,7 +511,7 @@ p2_tele
 
 ### Simulate Data & Fit Model
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+```{r, message=FALSE, warning=FALSE}
 set.seed(4830)
 library(dplyr)
 
@@ -629,4 +642,4 @@ c(mu_hat = mu2_hat, P_at_least_1 = p_atleast1_hat)
 
 Estimated mean claims $\hat{\mu}$: `r round(mu2_hat, 3)`
 Estimated Pr(Y\geq 1): `r round(p_atleast1_hat, 3)`
--->
+

@@ -1,0 +1,117 @@
+---
+title: "Count Response"
+author: "Dr. Lasanthi Watagoda"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: united
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+
+###  Fit Poisson GLM (log link)
+
+```{r, message=FALSE, warning=FALSE}
+# 4) Fit Poisson GLM (log link)
+library(data.table)
+library(dplyr)
+fit1 <- glm(Cars ~ logIncome + FamilySize, data = dat1, family = poisson(link = "log"))
+
+summary(fit1)
+```
+
+Compute the Required Variance from the Fitted Model
+
+We want Income=150,000 and Family size = 4: category 3–4 in our coding.
+For a Poisson GLM, $Var(Y)=\mu$.
+
+```{r message=FALSE, warning=FALSE}
+new_case <- data.frame(
+  logIncome = log(150000),
+  FamilySize = factor("3-4", levels = c("1-2","3-4","5+"))
+)
+
+mu_hat <- predict(fit1, newdata = new_case, type = "response")
+mu_hat
+```
+
+Estimated mean $\hat{\mu}$: `r round(mu_hat, 3)`
+Estimated variance $Var(Y)$: `r round(mu_hat, 3)` (Poisson: Var = Mean)
+
+## Example 2 — Claim Count (Poisson Model)
+
+**Response Variable:** Claim Count  
+**Distribution:** Poisson  
+**Link Function:** Log  
+**Predictors:** Rating class (Standard vs Preferred), Miles driven (in thousands)
+
+| Parameter      | df | Estimate |
+|----------------|----|----------|
+| Intercept      |  1 | -1.512   |
+| Rating class   |    |          |
+|  * Standard     |  0 | 0.000    |
+|  * Preferred    |  1 | -0.301   |
+| Miles driven   |  1 | 0.020    |
+
+---
+
+### Problem
+
+Calculate the probability that a **Preferred driver** who drives **10,000 miles** (i.e., 10 units in thousands) submits at least one claim.
+
+---
+
+```{r message=FALSE, warning=FALSE}
+set.seed(3852)
+
+m <- 5000
+Rating <- sample(c("Standard","Preferred"), size = m, replace = TRUE, prob = c(0.6, 0.4))
+Rating <- factor(Rating, levels = c("Standard","Preferred"))  # ref = Standard
+
+# Miles in thousands (nonnegative, skewed)
+Miles <- pmax(0, rnorm(m, mean = 9, sd = 3))  # center near 9k–10k
+
+# True coefficients
+b0    <- -1.512
+b_pref<- -0.301
+b_mi  <-  0.020
+
+eta2_true <- b0 + (Rating == "Preferred")*b_pref + b_mi*Miles
+mu2_true  <- exp(eta2_true)
+
+Claims <- rpois(m, lambda = mu2_true)
+
+dat2 <- tibble(Claims, Rating, Miles)
+data.table(dat2)
+```
+
+
+#### Fit Poisson GLM
+
+```{r message=FALSE, warning=FALSE}
+# Fit Poisson GLM
+fit2 <- glm(Claims ~ Rating + Miles, data = dat2, family = poisson(link = "log"))
+
+summary(fit2)
+
+```
+
+Compute $Pr(Y \geq 1)$ for Preferred, 10,000 miles
+
+For Poisson $Y \sim Pois(\mu)$: $Pr(Y\geq1)=1−Pr(Y=0)=1−e^ {-\mu}$
+
+```{r message=FALSE, warning=FALSE}
+new_driver <- data.frame(
+  Rating = factor("Preferred", levels = c("Standard","Preferred")),
+  Miles  = 10  # in thousands
+)
+
+mu2_hat <- predict(fit2, newdata = new_driver, type = "response")
+p_atleast1_hat <- 1 - exp(-mu2_hat)
+
+c(mu_hat = mu2_hat, P_at_least_1 = p_atleast1_hat)
+```
+
+Estimated mean claims $\hat{\mu}$: `r round(mu2_hat, 3)`
+Estimated Pr(Y\geq 1): `r round(p_atleast1_hat, 3)`
