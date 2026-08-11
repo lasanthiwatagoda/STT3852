@@ -9,15 +9,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Dr. Lasanthi Watagoda" />
+<meta name="author" content="Dr. Hasthika Rupasinghe" />
 
 
-<title>Schedule for STT 3852 - Fall 2025</title>
+<title>Fall 2026 Course Schedule</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,9 +30,10 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -45,16 +46,6 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -223,6 +214,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -230,6 +284,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -272,209 +336,715 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Schedule for STT 3852 - Fall 2025</h1>
-<h4 class="author">Dr. Lasanthi Watagoda</h4>
-<h4 class="date">Last Updated on: Jun 17, 2025 at 12:01:22 PM</h4>
+<h1 class="title toc-ignore">Fall 2026 Course Schedule</h1>
+<h3 class="subtitle">Course Schedule and Important Dates</h3>
+<h4 class="author">Dr. Hasthika Rupasinghe</h4>
 
 </div>
 
 
-<hr />
-<p><strong>Week 1: (August 19 — August 23)</strong></p>
+<style>
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 {
+  color: #1f3a5f;
+  border-bottom: 3px solid #d9e2f3;
+  padding-bottom: 6px;
+  margin-top: 32px;
+}
+
+h2 {
+  color: #2f5597;
+  margin-top: 28px;
+}
+
+h3 {
+  color: #444444;
+  margin-top: 20px;
+}
+
+.week-header {
+  background: #eef3f8;
+  border-left: 6px solid #2f5597;
+  padding: 12px 16px;
+  margin-top: 28px;
+  margin-bottom: 16px;
+  border-radius: 5px;
+}
+
+.week-header h2 {
+  margin: 0;
+  color: #1f3a5f;
+}
+
+.course-info {
+  background: #f7f9fb;
+  border: 1px solid #d9e2f3;
+  padding: 15px 18px;
+  margin: 18px 0 25px 0;
+  border-radius: 7px;
+}
+
+.reading-box {
+  background: #f5f5f5;
+  border-left: 5px solid #777777;
+  padding: 10px 15px;
+  margin: 12px 0;
+  border-radius: 4px;
+}
+
+.hw-box {
+  background: #fff8e6;
+  border-left: 6px solid #e6a700;
+  padding: 11px 15px;
+  margin: 12px 0;
+  border-radius: 5px;
+}
+
+.quiz-box {
+  background: #eef7ff;
+  border-left: 6px solid #3182bd;
+  padding: 11px 15px;
+  margin: 12px 0;
+  border-radius: 5px;
+}
+
+.exam-box {
+  background: #fff0f0;
+  border: 2px solid #c0392b;
+  padding: 13px 16px;
+  margin: 15px 0;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.project-box {
+  background: #f1ecff;
+  border: 2px solid #7952b3;
+  padding: 14px 17px;
+  margin: 16px 0;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+.break-box {
+  background: #edf8ed;
+  border-left: 6px solid #3a923a;
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 5px;
+}
+
+.note-box {
+  background: #f8f9fa;
+  border-left: 5px solid #6c757d;
+  padding: 10px 15px;
+  margin: 12px 0;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.topic-list {
+  margin-top: 5px;
+}
+
+hr {
+  margin-top: 28px;
+  margin-bottom: 20px;
+  border-top: 1px solid #dddddd;
+}
+</style>
+<div class="course-info">
+<p><strong>Semester:</strong> Fall 2026<br />
+<strong>Instructional Dates:</strong> August 17 – December 2, 2026</p>
+<p>This schedule is subject to change as needed during the semester. Any
+changes will be announced in class and/or through the course site.</p>
+</div>
+<div id="course-schedule" class="section level1">
+<h1>Course Schedule</h1>
+<div class="week-header">
+<h2>
+Week 1 | August 17–21
+</h2>
+</div>
+<div id="lesson-1-linear-exponential-family" class="section level3">
+<h3>Lesson 1: Linear Exponential Family</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 1: Linear Exponential Family
-<ul>
-<li>Linear Exponential Family<br />
-</li>
-<li><em>Read Before Class:</em> <em>Regression Modeling with Actuarial
-and Financial Applications</em> 13.1–13.3.2, 13.6</li>
-</ul></li>
+<li>Linear Exponential Family</li>
 </ul>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>Regression Modeling with Actuarial and Financial Applications</em>,
+Sections <strong>13.1–13.3.2</strong> and <strong>13.6</strong></p>
+</div>
 <hr />
-<p><strong>Week 2: (August 26 — August 30)</strong></p>
+<div class="week-header">
+<h2>
+Week 2 | August 24–28
+</h2>
+</div>
+</div>
+<div id="lesson-1-continued" class="section level3">
+<h3>Lesson 1 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 1 Continued:
-<ul>
-<li>Link Functions, Tweedie Distribution<br />
-</li>
-<li><strong>HW 1 Due</strong> – Linear Exponential Family</li>
-</ul></li>
+<li>Link Functions</li>
+<li>Tweedie Distribution</li>
 </ul>
+<div class="hw-box">
+<p><strong>HW 1 Due</strong> — Linear Exponential Family</p>
+</div>
 <hr />
-<p><strong>Week 3: (September 2 — September 6)</strong></p>
+<div class="week-header">
+<h2>
+Week 3 | August 31–September 4
+</h2>
+</div>
+</div>
+<div id="lesson-1-continued-1" class="section level3">
+<h3>Lesson 1 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 1 Continued:
-<ul>
-<li>Estimation, Overdispersion<br />
-</li>
-</ul></li>
-<li>Lesson 2: Binomial Response
-<ul>
-<li><em>Read Before Class:</em> <em>Regression Modeling with Actuarial
-and Financial Applications</em> 11.1–11.2, 11.4–11.6</li>
-</ul></li>
-<li><strong>Quiz 1</strong><br />
-</li>
-<li><strong>HW 2 Due</strong> – Link Functions</li>
+<li>Estimation</li>
+<li>Overdispersion</li>
 </ul>
+</div>
+<div id="lesson-2-binomial-response" class="section level3">
+<h3>Lesson 2: Binomial Response</h3>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>Regression Modeling with Actuarial and Financial Applications</em>,
+Sections <strong>11.1–11.2</strong> and <strong>11.4–11.6</strong></p>
+</div>
+<div class="quiz-box">
+<p><strong>Quiz 1</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 2 Due</strong> — Link Functions</p>
+</div>
 <hr />
-<p><strong>Week 4: (September 9 — September 13)</strong></p>
+<div class="week-header">
+<h2>
+Week 4 | September 7–11
+</h2>
+</div>
+<div class="break-box">
+<p><strong>Monday, September 7 — State Holiday</strong><br />
+No classes; University closed.</p>
+</div>
+</div>
+<div id="lesson-2-continued" class="section level3">
+<h3>Lesson 2 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 2 Continued:
-<ul>
-<li>Binomial Response<br />
-</li>
+<li>Binomial Response</li>
 <li>Nominal Response</li>
-</ul></li>
-<li><strong>Quiz 2</strong><br />
-</li>
-<li><strong>HW 3 Due</strong> – Binomial Response</li>
 </ul>
+<div class="quiz-box">
+<p><strong>Quiz 2</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 3 Due</strong> — Binomial Response</p>
+</div>
 <hr />
-<p><strong>Week 5: (September 16 — September 20)</strong></p>
+<div class="week-header">
+<h2>
+Week 5 | September 14–18
+</h2>
+</div>
+</div>
+<div id="lesson-2-continued-1" class="section level3">
+<h3>Lesson 2 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 2 Continued:
-<ul>
-<li>Nominal Response<br />
-</li>
+<li>Nominal Response</li>
 <li>Ordinal Response</li>
-</ul></li>
-<li><strong>Quiz 3</strong><br />
-</li>
-<li><strong>HW 4 Due</strong> – Nominal Response</li>
 </ul>
+<div class="quiz-box">
+<p><strong>Quiz 3</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 4 Due</strong> — Nominal Response</p>
+</div>
 <hr />
-<p><strong>Week 6: (September 23 — September 27)</strong></p>
-<ul>
-<li>Lesson 2 Continued:
+<div class="week-header">
+<h2>
+Week 6 | September 21–25
+</h2>
+</div>
+</div>
+<div id="lesson-2-continued-2" class="section level3">
+<h3>Lesson 2 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
 <li>Ordinal Response</li>
-</ul></li>
-<li>Lesson 3: Poisson Response
-<ul>
-<li><em>Read Before Class:</em> <em>Regression Modeling with Actuarial
-and Financial Applications</em> Chapter 12</li>
-</ul></li>
-<li><strong>Quiz 4</strong><br />
-</li>
-<li><strong>HW 5 Due</strong> – Ordinal Response</li>
 </ul>
+</div>
+<div id="lesson-3-poisson-response" class="section level3">
+<h3>Lesson 3: Poisson Response</h3>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>Regression Modeling with Actuarial and Financial Applications</em>,
+<strong>Chapter 12</strong></p>
+</div>
+<div class="quiz-box">
+<p><strong>Quiz 4</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 5 Due</strong> — Ordinal Response</p>
+</div>
 <hr />
-<p><strong>Week 7: (September 30 — October 4)</strong></p>
+<div class="week-header">
+<h2>
+Week 7 | September 28–October 2
+</h2>
+</div>
+</div>
+<div id="lesson-3-continued" class="section level3">
+<h3>Lesson 3 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 3 Continued:
-<ul>
-<li>Overdispersion &amp; Negative Binomial Models<br />
-</li>
+<li>Overdispersion &amp; Negative Binomial Models</li>
 <li>Other Count Models</li>
-</ul></li>
-<li><strong>Quiz 5</strong><br />
-</li>
-<li><strong>HW 6 Due</strong> – Poisson Models</li>
 </ul>
+<div class="quiz-box">
+<p><strong>Quiz 5</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 6 Due</strong> — Poisson Models</p>
+</div>
 <hr />
-<p><strong>Week 8: (October 7 — October 11)</strong></p>
-<ul>
-<li>Lesson 3 Continued:
+<div class="week-header">
+<h2>
+Week 8 | October 5–9
+</h2>
+</div>
+<div class="break-box">
+<p><strong>October 5–6 — Fall Break</strong><br />
+No classes.</p>
+</div>
+</div>
+<div id="lesson-3-continued-1" class="section level3">
+<h3>Lesson 3 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
 <li>Applied Examples</li>
-</ul></li>
-<li><strong>Quiz 6</strong><br />
-</li>
-<li><strong>Exam 1</strong> (Oct 9)
-<ul>
-<li><em>No Homework Due</em></li>
-</ul></li>
 </ul>
+<div class="quiz-box">
+<p><strong>Quiz 6</strong></p>
+</div>
+<div class="exam-box">
+<p><strong>EXAM 1</strong></p>
+</div>
+<div class="note-box">
+<p><strong>No Homework Due This Week</strong></p>
+</div>
 <hr />
-<p><strong>Week 9: (October 14 — October 18)</strong></p>
+<div class="week-header">
+<h2>
+Week 9 | October 12–16
+</h2>
+</div>
+</div>
+<div id="lesson-4-decision-trees" class="section level3">
+<h3>Lesson 4: Decision Trees</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li><p>Fall Break (Oct 14)</p></li>
-<li><p>Lesson 4: Decision Trees</p>
-<ul>
-<li><p>Decision Trees</p></li>
-<li><p><em>Read Before Class:</em> <em>An Introduction to Statistical
-Learning</em> Chapter 8<br />
-</p></li>
-<li><p><em>No Homework Due</em></p></li>
-</ul></li>
+<li>Introduction to Decision Trees</li>
+<li>Decision Tree Methods</li>
 </ul>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>An Introduction to Statistical Learning</em>, <strong>Chapter
+8</strong></p>
+</div>
+<div class="note-box">
+<p><strong>No Homework Due This Week</strong></p>
+</div>
 <hr />
-<p><strong>Week 10: (October 21 — October 25)</strong></p>
-<ul>
-<li>Lesson 4 Continued:
+<div class="week-header">
+<h2>
+Week 10 | October 19–23
+</h2>
+</div>
+</div>
+<div id="lesson-4-continued" class="section level3">
+<h3>Lesson 4 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
 <li>Decision Trees</li>
-</ul></li>
-<li><strong>HW 7 Due</strong> – Decision Trees</li>
 </ul>
+<div class="hw-box">
+<p><strong>HW 7 Due</strong> — Decision Trees</p>
+</div>
 <hr />
-<p><strong>Week 11: (October 28 — November 1)</strong></p>
-<ul>
-<li>Lesson 4 Continued:
+<div class="week-header">
+<h2>
+Week 11 | October 26–30
+</h2>
+</div>
+</div>
+<div id="lesson-4-continued-1" class="section level3">
+<h3>Lesson 4 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
 <li>Decision Trees</li>
-</ul></li>
-<li><strong>Quiz 7</strong><br />
-</li>
-<li><strong>HW 8 Due</strong> – Decision Trees</li>
 </ul>
+<div class="quiz-box">
+<p><strong>Quiz 7</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 8 Due</strong> — Decision Trees</p>
+</div>
 <hr />
-<p><strong>Week 12: (November 4 — November 8)</strong></p>
-<ul>
-<li><p><strong>Project 1 Starts</strong></p></li>
-<li><p>Lesson 4 Continued:</p>
+<div class="week-header">
+<h2>
+Week 12 | November 2–6
+</h2>
+</div>
+<div class="project-box">
+<p><strong>PROJECT 1 BEGINS</strong></p>
+<p>Project instructions and requirements will be provided this week.</p>
+</div>
+</div>
+<div id="lesson-4-continued-2" class="section level3">
+<h3>Lesson 4 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
 <li>Decision Trees</li>
-</ul></li>
-<li><p>Lesson 5: Unsupervised Learning: PCA &amp; Clustering</p>
-<ul>
-<li><em>Read Before Class:</em> <em>An Introduction to Statistical
-Learning</em> Section 10.2<br />
-</li>
-</ul></li>
-<li><p><strong>Quiz 8</strong></p></li>
 </ul>
+</div>
+<div id="lesson-5-unsupervised-learning-pca-clustering"
+class="section level3">
+<h3>Lesson 5: Unsupervised Learning — PCA &amp; Clustering</h3>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>An Introduction to Statistical Learning</em>, <strong>Section
+10.2</strong></p>
+</div>
+<div class="quiz-box">
+<p><strong>Quiz 8</strong></p>
+</div>
 <hr />
-<p><strong>Week 13: (November 11 — November 15)</strong></p>
+<div class="week-header">
+<h2>
+Week 13 | November 9–13
+</h2>
+</div>
+</div>
+<div id="lesson-5-continued" class="section level3">
+<h3>Lesson 5 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 5 Continued:
-<ul>
-<li>Unsupervised Learning: PCA &amp; Clustering</li>
-</ul></li>
-<li><strong>HW 9 Due</strong> – PCA</li>
+<li>Unsupervised Learning</li>
+<li>Principal Component Analysis (PCA)</li>
+<li>Clustering</li>
 </ul>
+<div class="hw-box">
+<p><strong>HW 9 Due</strong> — PCA</p>
+</div>
 <hr />
-<p><strong>Week 14: (November 18 — November 22)</strong></p>
+<div class="week-header">
+<h2>
+Week 14 | November 16–20
+</h2>
+</div>
+</div>
+<div id="lesson-5-continued-1" class="section level3">
+<h3>Lesson 5 Continued</h3>
+<p><strong>Topics</strong></p>
 <ul>
-<li>Lesson 5 Continued:
-<ul>
-<li><p>Unsupervised Learning: PCA &amp; Clustering Continued</p></li>
-<li><p><em>Read Before Class:</em> <em>An Introduction to Statistical
-Learning</em> Section 10.3<br />
-</p></li>
-</ul></li>
-<li><strong>Quiz 9</strong><br />
-</li>
-<li><strong>HW 10 Due</strong> – Clustering</li>
+<li>Unsupervised Learning</li>
+<li>PCA &amp; Clustering Continued</li>
 </ul>
+<div class="reading-box">
+<p><strong>Read Before Class</strong><br />
+<em>An Introduction to Statistical Learning</em>, <strong>Section
+10.3</strong></p>
+</div>
+<div class="quiz-box">
+<p><strong>Quiz 9</strong></p>
+</div>
+<div class="hw-box">
+<p><strong>HW 10 Due</strong> — Clustering</p>
+</div>
 <hr />
-<p><strong>Week 15: (November 25 — November 29)</strong></p>
-<ul>
-<li>Unsupervised Learning Review<br />
-</li>
-<li><strong>Quiz 10</strong><br />
-</li>
-<li>Thanksgiving Break (Nov 27)</li>
-</ul>
+<div class="week-header">
+<h2>
+Week 15 | November 23–27
+</h2>
+</div>
+</div>
+<div id="unsupervised-learning-review" class="section level3">
+<h3>Unsupervised Learning Review</h3>
+<div class="quiz-box">
+<p><strong>Quiz 10</strong></p>
+</div>
+<div class="break-box">
+<p><strong>Wednesday, November 25 — University Break for
+Students</strong><br />
+No classes.</p>
+<p><strong>Thursday–Friday, November 26–27 — State
+Holidays</strong><br />
+No classes; University closed.</p>
+</div>
 <hr />
-<p><strong>Week 16: (December 2 — December 6)</strong></p>
+<div class="week-header">
+<h2>
+Week 16 | November 30–December 2
+</h2>
+</div>
+</div>
+<div id="final-course-activities" class="section level3">
+<h3>Final Course Activities</h3>
+<div class="project-box">
+<p><strong>PROJECT 1 DUE</strong></p>
+</div>
+<p><strong>Topics / Activities</strong></p>
 <ul>
-<li><strong>Project 1 Due</strong><br />
-</li>
 <li>Final Exam Review</li>
+<li>Course Wrap-Up</li>
 </ul>
+<div class="note-box">
+<p><strong>Wednesday, December 2 — Last Day of the Fall 2026
+Instructional Schedule</strong></p>
+</div>
 <hr />
+</div>
+</div>
+<div id="important-dates-at-a-glance" class="section level1">
+<h1>Important Dates at a Glance</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Date</th>
+<th align="left">Event</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>August 17</strong></td>
+<td align="left">First day of Fall 2026 classes</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>September 7</strong></td>
+<td align="left">State Holiday — No classes; University closed</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>October 5–6</strong></td>
+<td align="left">Fall Break — No classes</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Week 8</strong></td>
+<td align="left"><strong>Exam 1</strong></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>November 2–6</strong></td>
+<td align="left"><strong>Project 1 Begins</strong></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>November 25</strong></td>
+<td align="left">University Break for Students — No classes</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>November 26–27</strong></td>
+<td align="left">State Holidays — No classes; University closed</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>November 30–December 2</strong></td>
+<td align="left"><strong>Project 1 Due / Final Exam Review</strong></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>December 2</strong></td>
+<td align="left">Last day of instructional schedule</td>
+</tr>
+</tbody>
+</table>
+<!--
+---
+title: "Schedule for STT 3852 - Fall 2025"
+author: "Dr. Lasanthi Watagoda"
+date: 'Last Updated on: Aug 10, 2026 at 03:49:37 PM'
+output: 
+  bookdown::html_document2: 
+    highlight: textmate
+    theme: yeti
+    toc: true
+    css: "style.css"
+---
+
+***
+
+**Week 1: (August 19 — August 23)**
+
+* Lesson 1: Linear Exponential Family  
+  * Linear Exponential Family  
+  * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ 13.1–13.3.2, 13.6
+
+***
+
+**Week 2: (August 26 — August 30)**
+
+* Lesson 1 Continued:  
+  * Link Functions, Tweedie Distribution  
+  * **HW 1 Due** – Linear Exponential Family
+
+***
+
+**Week 3: (September 2 — September 6)**
+
+* Lesson 1 Continued:
+  * Estimation, Overdispersion  
+* Lesson 2: Binomial Response  
+  * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ 11.1–11.2, 11.4–11.6  
+  
+* **Quiz 1**  
+* **HW 2 Due** – Link Functions
+
+***
+
+**Week 4: (September 9 — September 13)**
+
+* Lesson 2 Continued:  
+  * Binomial Response  
+  * Nominal Response  
+  
+* **Quiz 2**  
+* **HW 3 Due** – Binomial Response
+
+***
+
+**Week 5: (September 16 — September 20)**
+
+* Lesson 2 Continued: 
+  * Nominal Response  
+  * Ordinal Response  
+  
+* **Quiz 3**  
+* **HW 4 Due** – Nominal Response
+
+***
+
+**Week 6: (September 23 — September 27)**
+
+* Lesson 2 Continued: 
+  * Ordinal Response  
+  
+* Lesson 3: Poisson Response  
+  * *Read Before Class:* _Regression Modeling with Actuarial and Financial Applications_ Chapter 12  
+  
+* **Quiz 4**  
+* **HW 5 Due** – Ordinal Response
+
+***
+
+**Week 7: (September 30 — October 4)**
+
+* Lesson 3 Continued:
+  * Overdispersion & Negative Binomial Models  
+  * Other Count Models  
+  
+* **Quiz 5**  
+* **HW 6 Due** – Poisson Models
+
+***
+
+**Week 8: (October 7 — October 11)**
+
+* Lesson 3 Continued:
+  * Applied Examples  
+  
+* **Quiz 6**  
+* **Exam 1** (Oct 9)  
+  * *No Homework Due*
+
+***
+
+**Week 9: (October 14 — October 18)**
+
+* Fall Break (Oct 14)  
+
+* Lesson 4: Decision Trees  
+  * Decision Trees  
+
+  * *Read Before Class:* _An Introduction to Statistical Learning_ Chapter 8  
+  * *No Homework Due*
+
+***
+
+**Week 10: (October 21 — October 25)**
+
+* Lesson 4 Continued:
+  * Decision Trees
+  
+* **HW 7 Due** – Decision Trees
+
+***
+
+**Week 11: (October 28 — November 1)**
+
+* Lesson 4 Continued:
+  * Decision Trees
+  
+* **Quiz 7**  
+* **HW 8 Due** – Decision Trees
+
+***
+
+**Week 12: (November 4 — November 8)**
+
+* **Project 1 Starts**  
+
+* Lesson 4 Continued:
+  * Decision Trees
+ 
+* Lesson 5: Unsupervised Learning: PCA & Clustering  
+
+  * *Read Before Class:* _An Introduction to Statistical Learning_ Section 10.2  
+* **Quiz 8**
+
+***
+
+**Week 13: (November 11 — November 15)**
+
+* Lesson 5 Continued:
+  * Unsupervised Learning: PCA & Clustering   
+  
+* **HW 9 Due** – PCA
+
+***
+
+**Week 14: (November 18 — November 22)**
+
+* Lesson 5 Continued:
+  * Unsupervised Learning: PCA & Clustering Continued  
+  
+  * *Read Before Class:* _An Introduction to Statistical Learning_ Section 10.3  
+* **Quiz 9**  
+* **HW 10 Due** – Clustering
+
+***
+
+**Week 15: (November 25 — November 29)**
+
+* Unsupervised Learning Review  
+* **Quiz 10**  
+* Thanksgiving Break (Nov 27)
+
+***
+
+**Week 16: (December 2 — December 6)**
+
+* **Project 1 Due**  
+* Final Exam Review
+
+***
+-->
+</div>
 
 <div id="footer">
      <p><strong>Lasanthi Watagoda</strong> </br>
@@ -499,6 +1069,8 @@ Learning</em> Section 10.3<br />
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -531,6 +1103,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

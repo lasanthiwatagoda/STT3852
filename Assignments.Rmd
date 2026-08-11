@@ -1,4 +1,590 @@
 ---
+title: "Fall 2026 Course Schedule"
+subtitle: "Course Schedule and Important Dates"
+author: "Dr. Hasthika Rupasinghe"
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: flatly
+    highlight: tango
+---
+
+<style>
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 {
+  color: #1f3a5f;
+  border-bottom: 3px solid #d9e2f3;
+  padding-bottom: 6px;
+  margin-top: 32px;
+}
+
+h2 {
+  color: #2f5597;
+  margin-top: 28px;
+}
+
+h3 {
+  color: #444444;
+  margin-top: 20px;
+}
+
+.week-header {
+  background: #eef3f8;
+  border-left: 6px solid #2f5597;
+  padding: 12px 16px;
+  margin-top: 28px;
+  margin-bottom: 16px;
+  border-radius: 5px;
+}
+
+.week-header h2 {
+  margin: 0;
+  color: #1f3a5f;
+}
+
+.course-info {
+  background: #f7f9fb;
+  border: 1px solid #d9e2f3;
+  padding: 15px 18px;
+  margin: 18px 0 25px 0;
+  border-radius: 7px;
+}
+
+.reading-box {
+  background: #f5f5f5;
+  border-left: 5px solid #777777;
+  padding: 10px 15px;
+  margin: 12px 0;
+  border-radius: 4px;
+}
+
+.hw-box {
+  background: #fff8e6;
+  border-left: 6px solid #e6a700;
+  padding: 11px 15px;
+  margin: 12px 0;
+  border-radius: 5px;
+}
+
+.quiz-box {
+  background: #eef7ff;
+  border-left: 6px solid #3182bd;
+  padding: 11px 15px;
+  margin: 12px 0;
+  border-radius: 5px;
+}
+
+.exam-box {
+  background: #fff0f0;
+  border: 2px solid #c0392b;
+  padding: 13px 16px;
+  margin: 15px 0;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.project-box {
+  background: #f1ecff;
+  border: 2px solid #7952b3;
+  padding: 14px 17px;
+  margin: 16px 0;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+.break-box {
+  background: #edf8ed;
+  border-left: 6px solid #3a923a;
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 5px;
+}
+
+.note-box {
+  background: #f8f9fa;
+  border-left: 5px solid #6c757d;
+  padding: 10px 15px;
+  margin: 12px 0;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.topic-list {
+  margin-top: 5px;
+}
+
+hr {
+  margin-top: 28px;
+  margin-bottom: 20px;
+  border-top: 1px solid #dddddd;
+}
+</style>
+
+<div class="course-info">
+
+**Semester:** Fall 2026  
+**Instructional Dates:** August 17 – December 2, 2026  
+
+This schedule is subject to change as needed during the semester. Any changes will be announced in class and/or through the course site.
+
+</div>
+
+# Course Schedule
+
+<div class="week-header">
+<h2>Week 1 | August 17–21</h2>
+</div>
+
+### Lesson 1: Linear Exponential Family
+
+**Topics**
+
+- Linear Exponential Family
+
+<div class="reading-box">
+
+**Read Before Class**  
+*Regression Modeling with Actuarial and Financial Applications*, Sections **13.1–13.3.2** and **13.6**
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 2 | August 24–28</h2>
+</div>
+
+### Lesson 1 Continued
+
+**Topics**
+
+- Link Functions
+- Tweedie Distribution
+
+<div class="hw-box">
+
+**HW 1 Due** — Linear Exponential Family
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 3 | August 31–September 4</h2>
+</div>
+
+### Lesson 1 Continued
+
+**Topics**
+
+- Estimation
+- Overdispersion
+
+### Lesson 2: Binomial Response
+
+<div class="reading-box">
+
+**Read Before Class**  
+*Regression Modeling with Actuarial and Financial Applications*, Sections **11.1–11.2** and **11.4–11.6**
+
+</div>
+
+<div class="quiz-box">
+
+**Quiz 1**
+
+</div>
+
+<div class="hw-box">
+
+**HW 2 Due** — Link Functions
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 4 | September 7–11</h2>
+</div>
+
+<div class="break-box">
+
+**Monday, September 7 — State Holiday**  
+No classes; University closed.
+
+</div>
+
+### Lesson 2 Continued
+
+**Topics**
+
+- Binomial Response
+- Nominal Response
+
+<div class="quiz-box">
+
+**Quiz 2**
+
+</div>
+
+<div class="hw-box">
+
+**HW 3 Due** — Binomial Response
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 5 | September 14–18</h2>
+</div>
+
+### Lesson 2 Continued
+
+**Topics**
+
+- Nominal Response
+- Ordinal Response
+
+<div class="quiz-box">
+
+**Quiz 3**
+
+</div>
+
+<div class="hw-box">
+
+**HW 4 Due** — Nominal Response
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 6 | September 21–25</h2>
+</div>
+
+### Lesson 2 Continued
+
+**Topics**
+
+- Ordinal Response
+
+### Lesson 3: Poisson Response
+
+<div class="reading-box">
+
+**Read Before Class**  
+*Regression Modeling with Actuarial and Financial Applications*, **Chapter 12**
+
+</div>
+
+<div class="quiz-box">
+
+**Quiz 4**
+
+</div>
+
+<div class="hw-box">
+
+**HW 5 Due** — Ordinal Response
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 7 | September 28–October 2</h2>
+</div>
+
+### Lesson 3 Continued
+
+**Topics**
+
+- Overdispersion & Negative Binomial Models
+- Other Count Models
+
+<div class="quiz-box">
+
+**Quiz 5**
+
+</div>
+
+<div class="hw-box">
+
+**HW 6 Due** — Poisson Models
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 8 | October 5–9</h2>
+</div>
+
+<div class="break-box">
+
+**October 5–6 — Fall Break**  
+No classes.
+
+</div>
+
+### Lesson 3 Continued
+
+**Topics**
+
+- Applied Examples
+
+<div class="quiz-box">
+
+**Quiz 6**
+
+</div>
+
+<div class="exam-box">
+
+**EXAM 1**
+
+</div>
+
+<div class="note-box">
+
+**No Homework Due This Week**
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 9 | October 12–16</h2>
+</div>
+
+### Lesson 4: Decision Trees
+
+**Topics**
+
+- Introduction to Decision Trees
+- Decision Tree Methods
+
+<div class="reading-box">
+
+**Read Before Class**  
+*An Introduction to Statistical Learning*, **Chapter 8**
+
+</div>
+
+<div class="note-box">
+
+**No Homework Due This Week**
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 10 | October 19–23</h2>
+</div>
+
+### Lesson 4 Continued
+
+**Topics**
+
+- Decision Trees
+
+<div class="hw-box">
+
+**HW 7 Due** — Decision Trees
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 11 | October 26–30</h2>
+</div>
+
+### Lesson 4 Continued
+
+**Topics**
+
+- Decision Trees
+
+<div class="quiz-box">
+
+**Quiz 7**
+
+</div>
+
+<div class="hw-box">
+
+**HW 8 Due** — Decision Trees
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 12 | November 2–6</h2>
+</div>
+
+<div class="project-box">
+
+**PROJECT 1 BEGINS**
+
+Project instructions and requirements will be provided this week.
+
+</div>
+
+### Lesson 4 Continued
+
+**Topics**
+
+- Decision Trees
+
+### Lesson 5: Unsupervised Learning — PCA & Clustering
+
+<div class="reading-box">
+
+**Read Before Class**  
+*An Introduction to Statistical Learning*, **Section 10.2**
+
+</div>
+
+<div class="quiz-box">
+
+**Quiz 8**
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 13 | November 9–13</h2>
+</div>
+
+### Lesson 5 Continued
+
+**Topics**
+
+- Unsupervised Learning
+- Principal Component Analysis (PCA)
+- Clustering
+
+<div class="hw-box">
+
+**HW 9 Due** — PCA
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 14 | November 16–20</h2>
+</div>
+
+### Lesson 5 Continued
+
+**Topics**
+
+- Unsupervised Learning
+- PCA & Clustering Continued
+
+<div class="reading-box">
+
+**Read Before Class**  
+*An Introduction to Statistical Learning*, **Section 10.3**
+
+</div>
+
+<div class="quiz-box">
+
+**Quiz 9**
+
+</div>
+
+<div class="hw-box">
+
+**HW 10 Due** — Clustering
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 15 | November 23–27</h2>
+</div>
+
+### Unsupervised Learning Review
+
+<div class="quiz-box">
+
+**Quiz 10**
+
+</div>
+
+<div class="break-box">
+
+**Wednesday, November 25 — University Break for Students**  
+No classes.
+
+**Thursday–Friday, November 26–27 — State Holidays**  
+No classes; University closed.
+
+</div>
+
+---
+
+<div class="week-header">
+<h2>Week 16 | November 30–December 2</h2>
+</div>
+
+### Final Course Activities
+
+<div class="project-box">
+
+**PROJECT 1 DUE**
+
+</div>
+
+**Topics / Activities**
+
+- Final Exam Review
+- Course Wrap-Up
+
+<div class="note-box">
+
+**Wednesday, December 2 — Last Day of the Fall 2026 Instructional Schedule**
+
+</div>
+
+---
+
+# Important Dates at a Glance
+
+| Date | Event |
+|:---|:---|
+| **August 17** | First day of Fall 2026 classes |
+| **September 7** | State Holiday — No classes; University closed |
+| **October 5–6** | Fall Break — No classes |
+| **Week 8** | **Exam 1** |
+| **November 2–6** | **Project 1 Begins** |
+| **November 25** | University Break for Students — No classes |
+| **November 26–27** | State Holidays — No classes; University closed |
+| **November 30–December 2** | **Project 1 Due / Final Exam Review** |
+| **December 2** | Last day of instructional schedule |
+
+
+
+
+<!--
+---
 title: "Schedule for STT 3852 - Fall 2025"
 author: "Dr. Lasanthi Watagoda"
 date: 'Last Updated on: `r format(Sys.time(), "%b %d, %Y at %X")`'
@@ -176,3 +762,4 @@ output:
 * Final Exam Review
 
 ***
+-->
