@@ -1,13 +1,104 @@
 ---
 title: "R Scripts"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-***
+<style>
+body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2d3436;
+}
 
-* [`Categorical Response R Script`](RScripts/StudentCategoricalResponse.html)
+h1, h2, h3 {
+  color: #1f3a5f;
+}
 
-***
+.page-banner {
+  background: linear-gradient(135deg, #1f3a5f, #2f5597);
+  color: white;
+  padding: 24px 28px;
+  border-radius: 10px;
+  margin: 15px 0 28px 0;
+}
+
+.page-banner h2 {
+  color: white;
+  margin-top: 0;
+  margin-bottom: 7px;
+}
+
+.page-banner p {
+  margin-bottom: 0;
+  font-size: 1.05em;
+}
+
+.script-card {
+  background: #f8f6fc;
+  border: 1px solid #dddfea;
+  border-left: 6px solid #7952b3;
+  padding: 20px 22px;
+  margin: 18px 0;
+  border-radius: 8px;
+}
+
+.script-card h3 {
+  margin-top: 0;
+  color: #1f3a5f;
+}
+
+.script-card p {
+  margin-bottom: 12px;
+}
+
+.script-button {
+  display: inline-block;
+  background: #2f5597;
+  color: white !important;
+  padding: 10px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.script-button:hover {
+  background: #1f3a5f;
+  color: white !important;
+  text-decoration: none;
+}
+
+.section-title {
+  margin-top: 28px;
+  padding-bottom: 7px;
+  border-bottom: 3px solid #d9e2f3;
+}
+</style>
+
+<div class="page-banner">
+
+## R Scripts & Examples
+
+Access R scripts and worked examples used throughout the course. Additional scripts will be added as we progress through the semester.
+
+</div>
+
+## Course R Scripts {.section-title}
+
+<div class="script-card">
+
+### Categorical Response Models
+
+R code and examples for working with categorical response models.
+
+<a class="script-button" href="RScripts/StudentCategoricalResponse.html">Open R Script →</a>
+
+</div>
+
+---

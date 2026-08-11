@@ -1,7 +1,7 @@
 ---
 title: "Fall 2026 Course Schedule"
 subtitle: "Course Schedule and Important Dates"
-author: "Dr. Hasthika Rupasinghe"
+author: "Dr. Lasanthi Watagoda"
 date: ""
 output:
   html_document:

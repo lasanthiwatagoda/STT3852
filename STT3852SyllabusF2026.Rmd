@@ -1,0 +1,193 @@
+---
+title: "Course Information & Policies"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: flatly
+    highlight: tango
+---
+
+<style>
+body {font-size:16px; line-height:1.65; color:#2d3436;}
+h1 {color:#1f3a5f; border-bottom:3px solid #d9e2f3; padding-bottom:7px; margin-top:36px;}
+h2,h3 {color:#2f5597;}
+.info-card,.office-box,.outcome-box,.resource-box,.assessment-box,.exam-box,.policy-box {
+ padding:16px 20px; margin:16px 0; border-radius:7px;
+}
+.info-card {background:#f7f9fc; border:1px solid #dce4ee; border-left:6px solid #2f5597;}
+.office-box {background:#eef7ff; border-left:6px solid #3182bd;}
+.outcome-box {background:#f4f8f4; border-left:6px solid #4f8a5b;}
+.resource-box {background:#f8f6fc; border-left:6px solid #7952b3;}
+.assessment-box {background:#fff8e8; border-left:6px solid #e0a100;}
+.exam-box {background:#fff1f0; border-left:6px solid #c0392b;}
+.policy-box {background:#f5f6f7; border-left:6px solid #6c757d;}
+.zoom-button {display:inline-block; background:#2f5597; color:white !important; padding:9px 15px;
+ border-radius:5px; text-decoration:none; margin-top:5px;}
+table {width:100%; margin:15px 0 22px 0;}
+thead {background:#eef3f8;} th {color:#1f3a5f;}
+</style>
+
+<div class="info-card">
+
+### Instructor & Class Information
+
+**Instructor:** Dr. Lasanthi Watagoda  
+**Class Meeting:** TR, 11:00 AM – 12:15 PM, EDH 223 
+**Office:** EDH 123C  
+**Prerequisite:** STT 3851
+
+</div>
+
+<div class="office-box">
+
+### Office Hours
+
+**In-Person:** Tuesday & Thursday, 9:15 – 10:45 PM, EDH 123C  
+**Online:** Tuesday & Thursday, 9:15 – 10:45 PM  
+
+<a class="zoom-button" href="https://appstate.zoom.us/j/92697128817?pwd=SW9LSnNwU3BzODk2MU1aM2cyb0EvQT09" target="_blank">Join Online Office Hours</a>
+
+</div>
+
+# Course Description
+
+This course serves as a continuation of **STT 3851 (Statistical Learning I)**. Fundamentals of Generalized Linear Models (GLMs) are explored, with a focus on the linear exponential family, link functions, and their applications to categorical and count response variables.
+
+Supervised learning techniques for classification models and tree-based methods are also examined as they apply to both regression and classification problems. Unsupervised learning is introduced, including principal component analysis and various clustering algorithms.
+
+Other topics, such as support vector machines, regression splines, and smoothing splines, may be included. Students will complete projects using methods and algorithms covered in class and report their results using professional editing tools and principles of reproducible statistical research.
+
+# Learning Outcomes
+
+At the completion of this course, students will be able to:
+
+<div class="outcome-box">
+
+- Understand key concepts of statistical learning and the R programming language.
+- Explain models in R and access and interpret output, including diagnostics.
+- Understand key concepts concerning the construction of generalized linear models.
+- Apply key concepts concerning principal component analysis.
+- Apply key concepts concerning decision tree models.
+- Apply key concepts concerning cluster analysis.
+- Write professional reports and clearly explain findings related to statistical models and code.
+
+</div>
+
+# Course Texts
+
+<div class="resource-box">
+
+1. **James, G., Witten, D., Hastie, T., & Tibshirani, R.**  
+   *An Introduction to Statistical Learning* (ISLR).  
+   [ISLR Website](https://www.statlearning.com/)
+
+2. **Frees, E. W. (2010).**  
+   *Regression Modeling with Actuarial and Financial Applications.*  
+   Cambridge University Press. ISBN: 978-0521135962
+
+</div>
+
+# Required Resources
+
+- Course textbook(s)
+- Computer with internet access
+- Access to the course RStudio server
+- Notebook and course notes
+- Pencil
+- Calculator
+
+# Assessments
+
+<div class="assessment-box">
+
+### Homework
+Students are expected to work all assigned problems. Only selected assignments or portions of assignments may be graded. See the **Course Schedule** for due dates.
+
+</div>
+
+<div class="assessment-box">
+
+### Quizzes
+Weekly quizzes are anticipated throughout the semester. See the **Course Schedule** for quiz dates.
+
+</div>
+
+<div class="exam-box">
+
+### Midterm Exam & Project
+One **midterm exam** and one **project** will be given during the semester. See the **Course Schedule** for dates and deadlines.
+
+</div>
+
+<div class="exam-box">
+
+### Final Exam
+A comprehensive final exam will be given on **TBA** and will cover all material presented during the course.
+
+As the final exam needs to be proctored, students are required to have their video camera on during the final exam period.
+
+</div>
+
+# Attendance & Participation
+
+Attendance will be taken at the end of each class. Students are expected to attend every class.
+
+See Appalachian State University's [Syllabus Policy and Statement Information](https://academicaffairs.appstate.edu/resources/syllabi-policy-and-statement-information) for attendance policies.
+
+# Course Grading
+
+| Assessment | Weight |
+|:---|---:|
+| Homework | **20%** |
+| Quizzes | **30%** |
+| Project | **15%** |
+| Midterm Exam | **15%** |
+| Final Exam | **20%** |
+| **Total** | **100%** |
+
+## Grading Scale
+
+| Range | Grade | Range | Grade |
+|:---|:---:|:---|:---:|
+| 92.50% and above | **A** | 72.50–77.49% | **C** |
+| 90.00–92.49% | **A–** | 70.00–72.49% | **C–** |
+| 87.50–89.99% | **B+** | 67.50–69.99% | **D+** |
+| 82.50–87.49% | **B** | 62.50–67.49% | **D** |
+| 80.00–82.49% | **B–** | 60.00–62.49% | **D–** |
+| 77.50–79.99% | **C+** | 59.99% and below | **F** |
+
+# University Policies
+
+<div class="policy-box">
+
+### Academic Integrity, Disability Services & Religious Holiday Observance
+
+All students must abide by Appalachian State University's Academic Integrity Code.
+
+Students seeking disability accommodations should contact the appropriate University disability services office and follow University procedures for requesting accommodations.
+
+This course conforms with Appalachian State University policies regarding academic integrity, disability services, religious holiday observance, and class attendance.
+
+[University Syllabus Policies and Statements](https://academicaffairs.appstate.edu/resources/syllabi-policy-and-statement-information)
+
+</div>
+
+# Computers & Software
+
+This course will use the RStudio server at [https://mathr.appstate.edu/](https://mathr.appstate.edu/).
+
+<div class="resource-box">
+
+### Software
+
+- [R](https://cran.r-project.org/)
+- [RStudio](https://posit.co/download/rstudio-desktop/)
+- [LaTeX](https://www.ctan.org/starter)
+
+</div>
+
+Students must have an active internet connection and be registered for the course to access the server. Use your **App State username and password** to log in.
+
+---

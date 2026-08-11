@@ -13,10 +13,10 @@
 
 <title>R Scripts</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +30,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -44,16 +42,6 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -276,12 +264,93 @@ $(document).ready(function () {
 </div>
 
 
+<style>
+body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2d3436;
+}
+
+h1, h2, h3 {
+  color: #1f3a5f;
+}
+
+.page-banner {
+  background: linear-gradient(135deg, #1f3a5f, #2f5597);
+  color: white;
+  padding: 24px 28px;
+  border-radius: 10px;
+  margin: 15px 0 28px 0;
+}
+
+.page-banner h2 {
+  color: white;
+  margin-top: 0;
+  margin-bottom: 7px;
+}
+
+.page-banner p {
+  margin-bottom: 0;
+  font-size: 1.05em;
+}
+
+.script-card {
+  background: #f8f6fc;
+  border: 1px solid #dddfea;
+  border-left: 6px solid #7952b3;
+  padding: 20px 22px;
+  margin: 18px 0;
+  border-radius: 8px;
+}
+
+.script-card h3 {
+  margin-top: 0;
+  color: #1f3a5f;
+}
+
+.script-card p {
+  margin-bottom: 12px;
+}
+
+.script-button {
+  display: inline-block;
+  background: #2f5597;
+  color: white !important;
+  padding: 10px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.script-button:hover {
+  background: #1f3a5f;
+  color: white !important;
+  text-decoration: none;
+}
+
+.section-title {
+  margin-top: 28px;
+  padding-bottom: 7px;
+  border-bottom: 3px solid #d9e2f3;
+}
+</style>
+<div id="r-scripts-examples" class="section level2 page-banner">
+<h2>R Scripts &amp; Examples</h2>
+<p>Access R scripts and worked examples used throughout the course.
+Additional scripts will be added as we progress through the
+semester.</p>
+</div>
+<div id="course-r-scripts" class="section level2 section-title">
+<h2 class="section-title">Course R Scripts</h2>
+<div id="categorical-response-models"
+class="section level3 script-card">
+<h3>Categorical Response Models</h3>
+<p>R code and examples for working with categorical response models.</p>
+<p><a class="script-button" href="RScripts/StudentCategoricalResponse.html">Open
+R Script →</a></p>
+</div>
 <hr />
-<ul>
-<li><a
-href="RScripts/StudentCategoricalResponse.html"><code>Categorical Response R Script</code></a></li>
-</ul>
-<hr />
+</div>
 
 <div id="footer">
      <p><strong>Lasanthi Watagoda</strong> </br>
