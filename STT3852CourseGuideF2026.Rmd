@@ -74,7 +74,7 @@ No appointment needed.
 
 Individual meetings may be scheduled when regular office hours do not work.
 
-<a class="button purple" href="https://lasanthi.youcanbook.me/" target="_blank">Book a Meeting →</a>
+<a class="button purple" href="mailto:watagodal@appstate.edu?subject=STT%203852%20Meeting%20Request">Request a Meeting by Email →</a>
 
 </div>
 
@@ -239,7 +239,7 @@ Office hours are a good time to ask questions about concepts, review examples, d
 
 If regular office hours conflict with your schedule:
 
-<a class="button green" href="https://lasanthi.youcanbook.me/" target="_blank">Book an Appointment →</a>
+<a class="button purple" href="mailto:watagodal@appstate.edu?subject=STT%203852%20Meeting%20Request">Request a Meeting by Email →</a>
 
 ## Attendance & Missed Work {.section-title}
 
