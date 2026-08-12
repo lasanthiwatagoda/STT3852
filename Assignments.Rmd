@@ -42,10 +42,6 @@ h3 {
   margin-top: 28px;
   margin-bottom: 16px;
   border-radius: 5px;
-}
-
-.week-header h2 {
-  margin: 0;
   color: #1f3a5f;
 }
 
