@@ -1,0 +1,335 @@
+---
+title: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: flatly
+    highlight: tango
+---
+
+<style>
+body {font-size:16px; line-height:1.7; color:#2b3440;}
+.main-container {max-width:1120px !important;}
+h1,h2,h3 {color:#1f3a5f;}
+a {color:#2f5597;}
+.hero {padding:44px 42px; margin:18px 0 34px 0; border-radius:16px; background:linear-gradient(135deg,#f5f8fc 0%,#edf3f9 100%); border:1px solid #dce5ef; box-shadow:0 8px 28px rgba(31,58,95,.08);}
+.hero h1 {margin:0 0 7px 0; font-size:2.45em;}
+.hero p {margin:0; color:#52677d; font-size:1.08em; max-width:850px;}
+.quick-grid {display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0 32px 0;}
+.card {background:white; border:1px solid #dde5ed; border-radius:10px; padding:20px 21px; box-shadow:0 4px 14px rgba(31,58,95,.05);}
+.card h3 {margin-top:0;}
+.office {border-top:5px solid #4f8a5b;}
+.class {border-top:5px solid #3182bd;}
+.help {border-top:5px solid #7952b3;}
+.section-title {margin-top:40px; margin-bottom:18px; padding-bottom:8px; border-bottom:3px solid #d9e2f3;}
+.rule-box {background:#f8fafc; border-left:6px solid #2f5597; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.project-box {background:#f6f1fc; border:1px solid #dfd2f1; border-left:6px solid #7952b3; padding:19px 22px; border-radius:9px; margin:18px 0;}
+.exam-box {background:#fff1f0; border-left:6px solid #c0392b; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.tip-box {background:#f1f8f2; border-left:6px solid #4f8a5b; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.resource-grid {display:grid; grid-template-columns:repeat(2,1fr); gap:17px; margin:20px 0 30px 0;}
+.button {display:inline-block; background:#2f5597; color:white !important; padding:9px 14px; margin:5px 6px 5px 0; border-radius:6px; text-decoration:none !important; font-weight:600;}
+.button.green {background:#4f8a5b;}
+.button.purple {background:#7952b3;}
+@media(max-width:800px){.quick-grid,.resource-grid{grid-template-columns:1fr;}.hero{padding:30px 24px;}.hero h1{font-size:2em;}}
+</style>
+
+<div class="hero">
+
+# STT 3852 Course Guide
+
+**Statistical Learning II · Fall 2026**
+
+This guide contains the day-to-day procedures, resources, and practical expectations for the course. The official syllabus provides the formal course requirements; this guide is designed to help you navigate the semester successfully.
+
+</div>
+
+<div class="quick-grid">
+
+<div class="card class">
+
+### Class
+
+Tuesday & Thursday  
+**11:00 AM – 12:15 PM**
+
+</div>
+
+<div class="card office">
+
+### Office Hours
+
+Tuesday & Thursday  
+**9:15 – 10:45 AM**  
+Edwin Duncan Hall
+
+No appointment needed.
+
+</div>
+
+<div class="card help">
+
+### Need Another Time?
+
+Individual meetings may be scheduled when regular office hours do not work.
+
+<a class="button purple" href="https://lasanthi.youcanbook.me/" target="_blank">Book a Meeting →</a>
+
+</div>
+
+</div>
+
+## How the Course Is Organized {.section-title}
+
+The course is organized around five major areas:
+
+1. **Generalized Linear Models**
+2. **Categorical Response Models**
+3. **Count Response Models**
+4. **Tree-Based Methods**
+5. **Unsupervised Learning: PCA & Clustering**
+
+R will be used throughout the semester for computation, modeling, diagnostics, visualization, and reproducible reporting.
+
+<div class="tip-box">
+
+### A Good Weekly Routine
+
+Before class, review the assigned reading or posted notes. During class, work through examples and R code actively. After class, revisit the examples, complete assigned problems, and make sure you can explain both the statistical method and the R output.
+
+</div>
+
+## Course Website & Core Links {.section-title}
+
+<div class="resource-grid">
+
+<div class="card">
+
+### Official Syllabus
+
+Policies, grading, learning outcomes, required materials, and formal course expectations.
+
+<a class="button" href="STT3852SyllabusF2026.html">Open Syllabus →</a>
+
+</div>
+
+<div class="card">
+
+### Course Pacing
+
+Weekly topics, readings, homework, quizzes, exams, projects, and University breaks.
+
+<a class="button" href="Assignments.html">Open Course Pacing →</a>
+
+</div>
+
+<div class="card">
+
+### R Scripts
+
+Course R scripts and worked examples.
+
+<a class="button" href="RcodesbyChapter.html">Open R Scripts →</a>
+
+</div>
+
+<div class="card">
+
+### RStudio Server
+
+Use the departmental RStudio/Posit server for course computing.
+
+<a class="button" href="https://mathr.appstate.edu/" target="_blank">Open RStudio →</a>
+
+</div>
+
+</div>
+
+## Homework {.section-title}
+
+<div class="rule-box">
+
+Homework is intended to build fluency with the statistical ideas, calculations, interpretations, and R workflows introduced in class.
+
+- Students are expected to attempt **all assigned problems**.
+- Selected assignments or selected portions may be graded.
+- Show enough work and explanation for statistical reasoning to be evaluated.
+- R output should be accompanied by interpretation when interpretation is requested.
+- Due dates appear in the Course Pacing page and/or ASULearn.
+- Keep your own organized copy of completed work for exam review.
+
+</div>
+
+## Quizzes {.section-title}
+
+Quizzes are designed to encourage steady preparation rather than last-minute studying.
+
+- Quizzes generally focus on recently covered material.
+- Questions may involve concepts, interpretation, computation, or R output.
+- Students should review previous examples, homework, and class notes before each quiz.
+- Quiz dates are listed in the Course Pacing document when known.
+
+## Midterm & Final Exams {.section-title}
+
+<div class="exam-box">
+
+### Midterm Exam
+
+The midterm assesses the first major portion of the course. Expect questions that require both understanding of statistical concepts and interpretation of models or output.
+
+### Final Exam
+
+The final examination is comprehensive and follows the University's official examination schedule.
+
+Specific exam instructions, permitted resources, and any proctoring requirements will be announced before each exam.
+
+</div>
+
+## Course Project {.section-title}
+
+<div class="project-box">
+
+### Project Goal
+
+The project is an opportunity to bring together **statistical modeling, R, interpretation, and professional communication**.
+
+Students will be expected to:
+
+- select and apply appropriate statistical-learning methods;
+- document the analysis clearly;
+- use R effectively;
+- evaluate model results and diagnostics;
+- explain conclusions in context; and
+- produce a professional, reproducible report.
+
+Detailed project instructions, data requirements, grading criteria, and submission procedures will be provided separately.
+
+</div>
+
+## R, Computing & Reproducible Work {.section-title}
+
+Students should become comfortable using R as part of the statistical reasoning process—not simply as a calculator.
+
+Good practice includes:
+
+- keeping scripts organized;
+- using meaningful object names;
+- commenting code where helpful;
+- saving work regularly;
+- checking warnings and diagnostic output; and
+- producing reports in which analysis, results, and interpretation can be reproduced.
+
+### Software
+
+- [R](https://cran.r-project.org/)
+- [RStudio / Posit](https://posit.co/)
+- [LaTeX](https://www.ctan.org/starter)
+- [Course RStudio Server](https://mathr.appstate.edu/)
+
+## Communication {.section-title}
+
+### Office Hours
+
+Regular office hours are **Tuesday and Thursday, 9:15–10:45 AM** in Edwin Duncan Hall. No appointment is necessary during these hours.
+
+Office hours are a good time to ask questions about concepts, review examples, discuss R code, clarify feedback, talk through a project idea, or get advice about study strategies.
+
+### Appointments
+
+If regular office hours conflict with your schedule:
+
+<a class="button green" href="https://lasanthi.youcanbook.me/" target="_blank">Book an Appointment →</a>
+
+## Attendance & Missed Work {.section-title}
+
+Class meetings are an important part of the course because examples, interpretation, R demonstrations, quizzes, and announcements may occur during class.
+
+If you miss class:
+
+1. check the course site for posted material and announcements;
+2. obtain notes and determine what was covered;
+3. complete the relevant reading and examples; and
+4. contact the instructor if an academic question remains after reviewing the material.
+
+For religious observances, University-sponsored activities, extended medical circumstances, or emergency absences, follow the applicable University procedures and communicate as early as reasonably possible.
+
+## Generative AI & Statistical Work {.section-title}
+
+<div class="rule-box">
+
+Generative AI tools can sometimes help explain general concepts or assist with debugging, but they can also produce incorrect statistical reasoning, fabricated references, or code that appears plausible while giving the wrong analysis.
+
+Unless an assignment explicitly states otherwise:
+
+- submitted work should reflect **your own statistical reasoning**;
+- you remain responsible for the correctness of all code, calculations, interpretations, and citations;
+- AI-generated text or code should not replace required individual work; and
+- any permitted use of generative AI should follow the instructions given for that assignment.
+
+Assignment-specific directions take precedence over this general guidance.
+
+</div>
+
+## How to Succeed in STT 3852 {.section-title}
+
+<div class="tip-box">
+
+### Focus on Interpretation, Not Memorization
+
+For each method, be able to answer:
+
+- What problem does this method solve?
+- What type of response and predictors can it handle?
+- What assumptions or modeling choices matter?
+- What does the R output mean?
+- How do I know whether the model is useful?
+- How would I explain the result to someone who is not reading the code?
+
+</div>
+
+## University & Academic Resources {.section-title}
+
+<div class="resource-grid">
+
+<div class="card">
+
+### Academic Policies
+
+<a class="button" href="https://academicaffairs.appstate.edu/resources-forms/syllabi-policy-and-statement-information" target="_blank">University Policies →</a>
+
+</div>
+
+<div class="card">
+
+### Academic Calendar
+
+<a class="button" href="https://registrar.appstate.edu/calendars-schedules/academic-calendar" target="_blank">Academic Calendar →</a>
+
+</div>
+
+<div class="card">
+
+### Writing Center
+
+<a class="button" href="https://writingcenter.appstate.edu/" target="_blank">Writing Center →</a>
+
+</div>
+
+<div class="card">
+
+### Disability Resources
+
+<a class="button" href="https://odr.appstate.edu/" target="_blank">Disability Resources →</a>
+
+</div>
+
+</div>
+
+## Relationship to the Official Syllabus {.section-title}
+
+This Course Guide supplements the official syllabus. If there is an unintended conflict between this guide and the official syllabus regarding grading percentages, formal course requirements, or University policy, the official syllabus and applicable University policy govern.
+
+Operational instructions in this guide may be updated during the semester as course needs evolve. Significant changes will be communicated to students.
+
+---

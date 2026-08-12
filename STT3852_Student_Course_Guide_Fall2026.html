@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>STT3852_Student_Course_Guide_Fall2026.knit</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">STT 3852</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://lasanthiwatagoda.github.io/resources.html">Resources</a>
+</li>
+<li>
+  <a href="https://lasanthiwatagoda.github.io/for-students.html">For Students</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lasanthiwatagoda.github.io">Lasanthi Watagoda</a>
+</li>
+<li>
+  <a href="https://github.com/Lasanthi-ASU/STT4830SP2020ClassRepo/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<style>
+body {font-size:16px; line-height:1.7; color:#2b3440;}
+.main-container {max-width:1120px !important;}
+h1,h2,h3 {color:#1f3a5f;}
+a {color:#2f5597;}
+.hero {padding:44px 42px; margin:18px 0 34px 0; border-radius:16px; background:linear-gradient(135deg,#f5f8fc 0%,#edf3f9 100%); border:1px solid #dce5ef; box-shadow:0 8px 28px rgba(31,58,95,.08);}
+.hero h1 {margin:0 0 7px 0; font-size:2.45em;}
+.hero p {margin:0; color:#52677d; font-size:1.08em; max-width:850px;}
+.quick-grid {display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0 32px 0;}
+.card {background:white; border:1px solid #dde5ed; border-radius:10px; padding:20px 21px; box-shadow:0 4px 14px rgba(31,58,95,.05);}
+.card h3 {margin-top:0;}
+.office {border-top:5px solid #4f8a5b;}
+.class {border-top:5px solid #3182bd;}
+.help {border-top:5px solid #7952b3;}
+.section-title {margin-top:40px; margin-bottom:18px; padding-bottom:8px; border-bottom:3px solid #d9e2f3;}
+.rule-box {background:#f8fafc; border-left:6px solid #2f5597; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.project-box {background:#f6f1fc; border:1px solid #dfd2f1; border-left:6px solid #7952b3; padding:19px 22px; border-radius:9px; margin:18px 0;}
+.exam-box {background:#fff1f0; border-left:6px solid #c0392b; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.tip-box {background:#f1f8f2; border-left:6px solid #4f8a5b; padding:18px 21px; border-radius:8px; margin:18px 0;}
+.resource-grid {display:grid; grid-template-columns:repeat(2,1fr); gap:17px; margin:20px 0 30px 0;}
+.button {display:inline-block; background:#2f5597; color:white !important; padding:9px 14px; margin:5px 6px 5px 0; border-radius:6px; text-decoration:none !important; font-weight:600;}
+.button.green {background:#4f8a5b;}
+.button.purple {background:#7952b3;}
+@media(max-width:800px){.quick-grid,.resource-grid{grid-template-columns:1fr;}.hero{padding:30px 24px;}.hero h1{font-size:2em;}}
+</style>
+<div id="stt-3852-course-guide" class="section level1 hero">
+<h1>STT 3852 Course Guide</h1>
+<p><strong>Statistical Learning II · Fall 2026</strong></p>
+<p>This guide contains the day-to-day procedures, resources, and
+practical expectations for the course. The official syllabus provides
+the formal course requirements; this guide is designed to help you
+navigate the semester successfully.</p>
+</div>
+<div class="quick-grid">
+<div id="class" class="section level3 card class">
+<h3>Class</h3>
+<p>Tuesday &amp; Thursday<br />
+<strong>11:00 AM – 12:15 PM</strong></p>
+</div>
+<div id="office-hours" class="section level3 card office">
+<h3>Office Hours</h3>
+<p>Tuesday &amp; Thursday<br />
+<strong>9:15 – 10:45 AM</strong><br />
+Edwin Duncan Hall</p>
+<p>No appointment needed.</p>
+</div>
+<div id="need-another-time" class="section level3 card help">
+<h3>Need Another Time?</h3>
+<p>Individual meetings may be scheduled when regular office hours do not
+work.</p>
+<p><a class="button purple" href="https://lasanthi.youcanbook.me/" target="_blank">Book
+a Meeting →</a></p>
+</div>
+</div>
+<div id="how-the-course-is-organized"
+class="section level2 section-title">
+<h2 class="section-title">How the Course Is Organized</h2>
+<p>The course is organized around five major areas:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Generalized Linear Models</strong></li>
+<li><strong>Categorical Response Models</strong></li>
+<li><strong>Count Response Models</strong></li>
+<li><strong>Tree-Based Methods</strong></li>
+<li><strong>Unsupervised Learning: PCA &amp; Clustering</strong></li>
+</ol>
+<p>R will be used throughout the semester for computation, modeling,
+diagnostics, visualization, and reproducible reporting.</p>
+<div id="a-good-weekly-routine" class="section level3 tip-box">
+<h3>A Good Weekly Routine</h3>
+<p>Before class, review the assigned reading or posted notes. During
+class, work through examples and R code actively. After class, revisit
+the examples, complete assigned problems, and make sure you can explain
+both the statistical method and the R output.</p>
+</div>
+</div>
+<div id="course-website-core-links"
+class="section level2 section-title">
+<h2 class="section-title">Course Website &amp; Core Links</h2>
+<div class="resource-grid">
+<div id="official-syllabus" class="section level3 card">
+<h3>Official Syllabus</h3>
+<p>Policies, grading, learning outcomes, required materials, and formal
+course expectations.</p>
+<p><a class="button" href="STT3852SyllabusF2026.html">Open Syllabus
+→</a></p>
+</div>
+<div id="course-pacing" class="section level3 card">
+<h3>Course Pacing</h3>
+<p>Weekly topics, readings, homework, quizzes, exams, projects, and
+University breaks.</p>
+<p><a class="button" href="Assignments.html">Open Course Pacing
+→</a></p>
+</div>
+<div id="r-scripts" class="section level3 card">
+<h3>R Scripts</h3>
+<p>Course R scripts and worked examples.</p>
+<p><a class="button" href="RcodesbyChapter.html">Open R Scripts
+→</a></p>
+</div>
+<div id="rstudio-server" class="section level3 card">
+<h3>RStudio Server</h3>
+<p>Use the departmental RStudio/Posit server for course computing.</p>
+<p><a class="button" href="https://mathr.appstate.edu/" target="_blank">Open
+RStudio →</a></p>
+</div>
+</div>
+</div>
+<div id="homework" class="section level2 section-title">
+<h2 class="section-title">Homework</h2>
+<div class="rule-box">
+<p>Homework is intended to build fluency with the statistical ideas,
+calculations, interpretations, and R workflows introduced in class.</p>
+<ul>
+<li>Students are expected to attempt <strong>all assigned
+problems</strong>.</li>
+<li>Selected assignments or selected portions may be graded.</li>
+<li>Show enough work and explanation for statistical reasoning to be
+evaluated.</li>
+<li>R output should be accompanied by interpretation when interpretation
+is requested.</li>
+<li>Due dates appear in the Course Pacing page and/or ASULearn.</li>
+<li>Keep your own organized copy of completed work for exam review.</li>
+</ul>
+</div>
+</div>
+<div id="quizzes" class="section level2 section-title">
+<h2 class="section-title">Quizzes</h2>
+<p>Quizzes are designed to encourage steady preparation rather than
+last-minute studying.</p>
+<ul>
+<li>Quizzes generally focus on recently covered material.</li>
+<li>Questions may involve concepts, interpretation, computation, or R
+output.</li>
+<li>Students should review previous examples, homework, and class notes
+before each quiz.</li>
+<li>Quiz dates are listed in the Course Pacing document when known.</li>
+</ul>
+</div>
+<div id="midterm-final-exams" class="section level2 section-title">
+<h2 class="section-title">Midterm &amp; Final Exams</h2>
+<div class="exam-box">
+<div id="midterm-exam" class="section level3">
+<h3>Midterm Exam</h3>
+<p>The midterm assesses the first major portion of the course. Expect
+questions that require both understanding of statistical concepts and
+interpretation of models or output.</p>
+</div>
+<div id="final-exam" class="section level3">
+<h3>Final Exam</h3>
+<p>The final examination is comprehensive and follows the University’s
+official examination schedule.</p>
+<p>Specific exam instructions, permitted resources, and any proctoring
+requirements will be announced before each exam.</p>
+</div>
+</div>
+</div>
+<div id="course-project" class="section level2 section-title">
+<h2 class="section-title">Course Project</h2>
+<div id="project-goal" class="section level3 project-box">
+<h3>Project Goal</h3>
+<p>The project is an opportunity to bring together <strong>statistical
+modeling, R, interpretation, and professional
+communication</strong>.</p>
+<p>Students will be expected to:</p>
+<ul>
+<li>select and apply appropriate statistical-learning methods;</li>
+<li>document the analysis clearly;</li>
+<li>use R effectively;</li>
+<li>evaluate model results and diagnostics;</li>
+<li>explain conclusions in context; and</li>
+<li>produce a professional, reproducible report.</li>
+</ul>
+<p>Detailed project instructions, data requirements, grading criteria,
+and submission procedures will be provided separately.</p>
+</div>
+</div>
+<div id="r-computing-reproducible-work"
+class="section level2 section-title">
+<h2 class="section-title">R, Computing &amp; Reproducible Work</h2>
+<p>Students should become comfortable using R as part of the statistical
+reasoning process—not simply as a calculator.</p>
+<p>Good practice includes:</p>
+<ul>
+<li>keeping scripts organized;</li>
+<li>using meaningful object names;</li>
+<li>commenting code where helpful;</li>
+<li>saving work regularly;</li>
+<li>checking warnings and diagnostic output; and</li>
+<li>producing reports in which analysis, results, and interpretation can
+be reproduced.</li>
+</ul>
+<div id="software" class="section level3">
+<h3>Software</h3>
+<ul>
+<li><a href="https://cran.r-project.org/">R</a></li>
+<li><a href="https://posit.co/">RStudio / Posit</a></li>
+<li><a href="https://www.ctan.org/starter">LaTeX</a></li>
+<li><a href="https://mathr.appstate.edu/">Course RStudio Server</a></li>
+</ul>
+</div>
+</div>
+<div id="communication" class="section level2 section-title">
+<h2 class="section-title">Communication</h2>
+<div id="office-hours-1" class="section level3">
+<h3>Office Hours</h3>
+<p>Regular office hours are <strong>Tuesday and Thursday, 9:15–10:45
+AM</strong> in Edwin Duncan Hall. No appointment is necessary during
+these hours.</p>
+<p>Office hours are a good time to ask questions about concepts, review
+examples, discuss R code, clarify feedback, talk through a project idea,
+or get advice about study strategies.</p>
+</div>
+<div id="appointments" class="section level3">
+<h3>Appointments</h3>
+<p>If regular office hours conflict with your schedule:</p>
+<p><a class="button green" href="https://lasanthi.youcanbook.me/" target="_blank">Book
+an Appointment →</a></p>
+</div>
+</div>
+<div id="attendance-missed-work" class="section level2 section-title">
+<h2 class="section-title">Attendance &amp; Missed Work</h2>
+<p>Class meetings are an important part of the course because examples,
+interpretation, R demonstrations, quizzes, and announcements may occur
+during class.</p>
+<p>If you miss class:</p>
+<ol style="list-style-type: decimal">
+<li>check the course site for posted material and announcements;</li>
+<li>obtain notes and determine what was covered;</li>
+<li>complete the relevant reading and examples; and</li>
+<li>contact the instructor if an academic question remains after
+reviewing the material.</li>
+</ol>
+<p>For religious observances, University-sponsored activities, extended
+medical circumstances, or emergency absences, follow the applicable
+University procedures and communicate as early as reasonably
+possible.</p>
+</div>
+<div id="generative-ai-statistical-work"
+class="section level2 section-title">
+<h2 class="section-title">Generative AI &amp; Statistical Work</h2>
+<div class="rule-box">
+<p>Generative AI tools can sometimes help explain general concepts or
+assist with debugging, but they can also produce incorrect statistical
+reasoning, fabricated references, or code that appears plausible while
+giving the wrong analysis.</p>
+<p>Unless an assignment explicitly states otherwise:</p>
+<ul>
+<li>submitted work should reflect <strong>your own statistical
+reasoning</strong>;</li>
+<li>you remain responsible for the correctness of all code,
+calculations, interpretations, and citations;</li>
+<li>AI-generated text or code should not replace required individual
+work; and</li>
+<li>any permitted use of generative AI should follow the instructions
+given for that assignment.</li>
+</ul>
+<p>Assignment-specific directions take precedence over this general
+guidance.</p>
+</div>
+</div>
+<div id="how-to-succeed-in-stt-3852"
+class="section level2 section-title">
+<h2 class="section-title">How to Succeed in STT 3852</h2>
+<div id="focus-on-interpretation-not-memorization"
+class="section level3 tip-box">
+<h3>Focus on Interpretation, Not Memorization</h3>
+<p>For each method, be able to answer:</p>
+<ul>
+<li>What problem does this method solve?</li>
+<li>What type of response and predictors can it handle?</li>
+<li>What assumptions or modeling choices matter?</li>
+<li>What does the R output mean?</li>
+<li>How do I know whether the model is useful?</li>
+<li>How would I explain the result to someone who is not reading the
+code?</li>
+</ul>
+</div>
+</div>
+<div id="university-academic-resources"
+class="section level2 section-title">
+<h2 class="section-title">University &amp; Academic Resources</h2>
+<div class="resource-grid">
+<div id="academic-policies" class="section level3 card">
+<h3>Academic Policies</h3>
+<p><a class="button" href="https://academicaffairs.appstate.edu/resources-forms/syllabi-policy-and-statement-information" target="_blank">University
+Policies →</a></p>
+</div>
+<div id="academic-calendar" class="section level3 card">
+<h3>Academic Calendar</h3>
+<p><a class="button" href="https://registrar.appstate.edu/calendars-schedules/academic-calendar" target="_blank">Academic
+Calendar →</a></p>
+</div>
+<div id="writing-center" class="section level3 card">
+<h3>Writing Center</h3>
+<p><a class="button" href="https://writingcenter.appstate.edu/" target="_blank">Writing
+Center →</a></p>
+</div>
+<div id="disability-resources" class="section level3 card">
+<h3>Disability Resources</h3>
+<p><a class="button" href="https://odr.appstate.edu/" target="_blank">Disability
+Resources →</a></p>
+</div>
+</div>
+</div>
+<div id="relationship-to-the-official-syllabus"
+class="section level2 section-title">
+<h2 class="section-title">Relationship to the Official Syllabus</h2>
+<p>This Course Guide supplements the official syllabus. If there is an
+unintended conflict between this guide and the official syllabus
+regarding grading percentages, formal course requirements, or University
+policy, the official syllabus and applicable University policy
+govern.</p>
+<p>Operational instructions in this guide may be updated during the
+semester as course needs evolve. Significant changes will be
+communicated to students.</p>
+<hr />
+</div>
+
+<div id="footer">
+     <p><strong>Lasanthi Watagoda</strong> </br>
+			Associate Professor of Statistics </br>
+      <a href="mailto:lasanthi@appstate.edu"> lasanthi@appstate.edu</a>  </br>
+      <img src="./images/asu-logo-white-600.png" style="background-color:black; width:180px; float:left;" width =  /> 
+</p>
+        
+        <p><a href="https://lasanthi.youcanbook.me/" data-ycbm-modal="true"><img src="https://youcanbook.me/resources/pics/ycbm-button.png" style="border-style:none;"/></a>
+        </p>
+      
+        
+        <p>
+    <strong>Mailing Address</strong><br />      
+    <a href = "http://www.appstate.edu/"> Appalachian State University</a><br />
+		<a href= "https://mathsci.appstate.edu/"> Department of Mathematical Sciences</a><br />
+		Walker Hall 340<br />
+		121 Bodenheimer Dr<br />
+		Boone, NC 28608
+		</p> 
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
