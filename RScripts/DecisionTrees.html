@@ -3102,7 +3102,7 @@ observations belonging to class <span class="math inline">\(k\)</span>
 in the node.</p>
 <p>A smaller classification error rate indicates a purer node. A value
 of zero means all observations belong to the same class.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Calculate classification error rate at each node</span></span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Calculate classification error rate at each node.</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>node_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">Node =</span> <span class="fu">rownames</span>(tree_model<span class="sc">$</span>frame),</span>
 <span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">Observations =</span> tree_model<span class="sc">$</span>frame<span class="sc">$</span>n,</span>

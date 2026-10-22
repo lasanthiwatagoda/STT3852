@@ -161,8 +161,7 @@ where \(p_k\) is the proportion of observations belonging to class \(k\) in the 
 A smaller classification error rate indicates a purer node. A value of zero means all observations belong to the same class.
 
 ```{r}
-
-# Calculate classification error rate at each node
+# Calculate classification error rate at each node.
 node_results <- data.frame(
   Node = rownames(tree_model$frame),
   Observations = tree_model$frame$n,
