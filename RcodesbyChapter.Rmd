@@ -99,6 +99,11 @@ R code and examples for working with categorical response models.
 
 <a class="script-button" href="RScripts/StudentCategoricalResponse.html">Open R Script →</a>
 
+### Tree Models
+
+<a class="script-button"
+href="RScripts/DecisionTrees.html">Open R Script →</a>
+
 </div>
 
 ---
