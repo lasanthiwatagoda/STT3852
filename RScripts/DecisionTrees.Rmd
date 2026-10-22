@@ -1,0 +1,703 @@
+---
+title: "Introduction to Decision Trees"
+author: "Dr. Lasanthi Watagoda"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: show
+    df_print: paged
+  pdf_document:
+    toc: true
+    highlight: tango
+    number_sections: true
+fontsize: 12pt
+linestretch: 1.3
+editor_options:
+  chunk_output_type: inline
+---
+  
+```{r}
+# Load necessary libraries
+library(rpart)
+library(rpart.plot)
+```
+
+# Housing Data Set (Regression Tree)
+
+```{r}
+# Create a dataframe
+data <- data.frame(
+Value = c(300000, 350000, 280000, 500000, 450000, 400000, 380000),
+Style = c("Ranch", "Ranch", "Ranch", "Colonial", "Colonial", "CapeCod","Colonial"),
+SqFt = c(1600, 1400, 1700, 1800, 2100, 1500, 1900),
+Bedrooms = c(3, 2, 3, 4, 3, 2, 3))
+```
+
+
+```{r}
+# Convert categorical variable
+data$Style <- factor(data$Style)
+```
+
+```{r}
+# Build the Tree
+tree_model <- rpart(Value ~ Style + SqFt + Bedrooms, data = data, method = "anova",
+control = rpart.control(cp = 0.02, minsplit = 2))
+```
+
+```{r}
+# Plot the tree
+rpart.plot(tree_model, type = 3, extra = 0, box.palette = "Blues",
+under = TRUE, fallen.leaves = TRUE)
+```
+
+
+
+```{r, echo=FALSE}
+library(knitr)
+
+args_table <- data.frame(
+  Argument = c("tree_model", "type = 3", "extra = 0", "box.palette = 'Blues'", "under = TRUE", "fallen.leaves = TRUE"),
+  Meaning = c(
+    "The fitted model created with rpart().",
+    "Controls layout of split and node labels.",
+    "Controls what extra info is displayed in leaf nodes.",
+    "Applies a color gradient from the RColorBrewer palette 'Blues'.",
+    "Places split condition text under the node box.",
+    "Arranges all terminal nodes at the bottom of the plot."
+  ),
+  Effect = c(
+    "Input tree to plot.",
+    "Places split labels above branches and node labels inside boxes for readability.",
+    "Shows only predicted value (for regression) or class (for classification).",
+    "Darker color = higher predicted value.",
+    "Makes the diagram more compact.",
+    "Makes the tree look like a traditional tree with leaves at the bottom."
+  )
+)
+
+kable(args_table, caption = "Argument-by-Argument Breakdown for rpart.plot()")
+
+
+```
+
+```{r}
+# prediction for a new house:
+predict(tree_model, newdata = data.frame(Style = "CapeCod", SqFt = 1600, Bedrooms = 3))
+
+```
+
+
+
+```{r}
+#To illustrate selecting optimal α.
+printcp(tree_model) 
+plotcp(tree_model)
+```
+
+
+
+
+```{r}
+pruned_model <- prune(tree_model, cp = 0.1)
+rpart.plot(pruned_model)
+```
+
+# IRIS Data set (Classification Tree)
+
+The Iris dataset is a classic and widely used dataset in statistics and machine learning. It contains 150 observations of iris flowers, collected from three different species: Iris setosa, Iris versicolor, and Iris virginica — with 50 samples per species.
+
+Each observation includes four numerical features describing the physical dimensions of the flowers:
+
+  * Sepal length (cm)
+
+  * Sepal width (cm)
+
+  * Petal length (cm)
+
+  * Petal width (cm)
+
+The goal of analyses using this dataset is often to classify the species of iris based on these measurements or to explore patterns and relationships among the features. The dataset is well-balanced, easy to visualize, and frequently used for demonstrating data analysis, pattern recognition, and machine learning techniques such as classification and clustering.
+
+```{r}
+# Load libraries
+library(rpart)
+library(rpart.plot)
+
+```
+
+```{r}
+# Example dataset
+head(iris)
+```
+
+```{r}
+# Build a decision tree to predict Species
+tree_model <- rpart(Species ~ ., data = iris, method = "class")
+
+
+# Visualize the tree
+rpart.plot(tree_model)
+```
+```{r}
+# Predict for a new observation
+new_data <- data.frame(Sepal.Length=5.1, Sepal.Width=3.5, Petal.Length=1.4, Petal.Width=0.2)
+predict(tree_model, new_data, type="class")
+```
+# Optimizing Classification Trees
+
+## Classification Error Rate
+
+Recall: The Classification Error Rate measures the proportion of observations that are incorrectly classified in a node.
+
+\[E=1-\max_k(p_k)\]
+
+where \(p_k\) is the proportion of observations belonging to class \(k\) in the node.
+
+A smaller classification error rate indicates a purer node. A value of zero means all observations belong to the same class.
+
+```{r}
+
+# Calculate classification error rate at each node
+node_results <- data.frame(
+  Node = rownames(tree_model$frame),
+  Observations = tree_model$frame$n,
+  Misclassified = tree_model$frame$dev,
+  Classification_Error = tree_model$frame$dev / tree_model$frame$n
+)
+
+knitr::kable(node_results, digits = 4)
+```
+
+
+## Gini index and Cross Entropy Trees: Fit two classification trees using the Iris data
+
+```{r}
+library(rpart)
+library(rpart.plot)
+
+data(iris)
+
+# Classification tree using Gini index
+tree_gini <- rpart(
+  Species ~ .,
+  data = iris,
+  method = "class",
+  parms = list(split = "gini"),
+  control = rpart.control(cp = 0.01)
+)
+
+# Classification tree using Cross-Entropy
+tree_entropy <- rpart(
+  Species ~ .,
+  data = iris,
+  method = "class",
+  parms = list(split = "information"),
+  control = rpart.control(cp = 0.01)
+)
+
+# Plot the Gini tree
+rpart.plot(tree_gini,
+           type = 2,
+           extra = 104,
+           fallen.leaves = TRUE,
+           main = "Classification Tree: Gini Index")
+
+# Plot the Cross-Entropy tree
+rpart.plot(tree_entropy,
+           type = 2,
+           extra = 104,
+           fallen.leaves = TRUE,
+           main = "Classification Tree: Cross-Entropy")
+
+
+
+```
+
+### Calculate Gini index and cross-entropy manually
+
+```{r}
+
+# Class probabilities
+class_probs <- prop.table(table(iris$Species))
+class_probs
+
+# Gini index
+gini <- 1 - sum(class_probs^2)
+gini
+
+# Cross-entropy (natural logarithm)
+entropy <- -sum(class_probs * log(class_probs))
+entropy
+
+```
+
+### Demonstrate how a split reduces impurity
+
+Consider a simple split using `Petal.Length`.
+
+```{r}
+# Now consider a simple split using Petal.Length.
+
+# Divide observations into two groups
+left_node <- subset(iris, Petal.Length < 2.5)
+right_node <- subset(iris, Petal.Length >= 2.5)
+
+# Examine species counts
+table(left_node$Species)
+table(right_node$Species)
+
+```
+The first group contains all 50 Setosa flowers. The second group contains the remaining 100 flowers.
+
+### Calculate impurity for each group:
+
+```{r}
+
+# Functions for Gini and cross-entropy
+gini_index <- function(y) {
+  p <- prop.table(table(y))
+  1 - sum(p^2)
+}
+
+cross_entropy <- function(y) {
+  p <- prop.table(table(y))
+  -sum(p[p > 0] * log(p[p > 0]))
+}
+
+# Calculate impurity in each node
+gini_index(left_node$Species)
+gini_index(right_node$Species)
+
+cross_entropy(left_node$Species)
+cross_entropy(right_node$Species)
+```
+![Gini Index and Cross Entropy Illustration](iris_gini_cross.png)
+This split separates Setosa perfectly, so the left node has zero impurity. The right node still contains two species in equal proportions.
+
+### Calculate improvement in impurity
+
+Why the tree considers this split useful?
+
+```{r}
+
+# Weighted Gini after splitting
+weighted_gini <-
+  (50/150) * gini_index(left_node$Species) +
+  (100/150) * gini_index(right_node$Species)
+
+# Gini improvement
+gini_improvement <-
+  gini_index(iris$Species) - weighted_gini
+
+# Weighted cross-entropy after splitting
+weighted_entropy <-
+  (50/150) * cross_entropy(left_node$Species) +
+  (100/150) * cross_entropy(right_node$Species)
+
+# Information gain
+information_gain <-
+  cross_entropy(iris$Species) - weighted_entropy
+
+gini_improvement
+information_gain
+
+
+```
+
+| Measure       | Before Split | After Split | Reduction |
+|:--------------|-------------:|------------:|----------:|
+| Gini Index    | 0.6667       | 0.3333      | 0.3333    |
+| Cross-Entropy | 1.0986       | 0.4621      | 0.6365    |
+
+A classification tree searches for splits that maximize the reduction in impurity. Both Gini and cross-entropy reward splits that produce purer child nodes, although they can sometimes prefer different splits.
+
+## Residual Mean Deviance
+
+We can use the same iris dataset and the same split (Petal.Length < 2.5) to calculate Residual Mean Deviance for classification trees.
+
+For classification trees, the formula from our lecture is:
+
+$$\text{Residual Mean Deviance} = -\frac{1}{n-|T|}\sum_{m=1}^{|T|}\sum_{k=1}^{K}n_{mk}\ln(p_{mk})$$
+
+
+```{r}
+# Load iris data
+data(iris)
+
+# Use the same split
+left_node <- subset(iris, Petal.Length < 2.5)
+right_node <- subset(iris, Petal.Length >= 2.5)
+
+# Function to calculate node deviance
+node_deviance <- function(y) {
+  counts <- table(y)
+  p <- counts / sum(counts) # Only include nonzero probabilities
+  -sum(counts[p > 0] * log(p[p > 0]))
+}
+
+# Deviance before splitting
+deviance_before <- node_deviance(iris$Species)
+
+# Deviance after splitting
+deviance_after <-
+  node_deviance(left_node$Species) +
+  node_deviance(right_node$Species)
+
+# Number of observations
+n <- nrow(iris)
+
+# Residual Mean Deviance
+rmd_before <- deviance_before / (n - 1)
+rmd_after <- deviance_after / (n - 2)
+
+# Create comparison table
+results_rmd <- data.frame(
+  Model = c("Before Split", "After Split"),
+  Terminal_Nodes = c(1, 2),
+  Deviance = c(deviance_before, deviance_after),
+  Residual_Mean_Deviance = c(rmd_before, rmd_after)
+)
+
+# Display results
+knitr::kable(
+  results_rmd,
+  digits = 4,
+  col.names = c("Model", "Terminal Nodes",
+                "Deviance", "Residual Mean Deviance")
+)
+
+
+```
+
+
+Before splitting, all 150 observations are in one node, and the Residual Mean Deviance is approximately 1.1060.
+
+After splitting at `Petal.Length = 2.5`, the observations are divided into two groups. The Residual Mean Deviance decreases to approximately 0.4683.
+
+This indicates that the split produces more homogeneous groups and improves the fit according to this measure.
+
+**Connection to your previous example**: Cross-entropy measures the impurity within a node, while Residual Mean Deviance combines the cross-entropy contributions across terminal nodes and adjusts by \(n-|T|\).
+
+**One important distinction**: this is a manually calculated entropy-based residual mean deviance. The dev column in rpart classification-tree output uses a different definition (misclassification counts), so its values will not match these calculations.
+
+
+Residual Mean Deviance can be used to compare different decision trees fitted to the same dataset.
+
+The general idea is:
+    - Smaller Residual Mean Deviance indicates a better fit.
+    - Larger Residual Mean Deviance indicates a poorer fit.
+    
+For example, using our iris dataset:
+
+| Tree | Terminal Nodes | Residual Mean Deviance |
+|:--------------------|:--------------:|:----------------------:|
+| Tree 1 (No split)   | 1 | 1.1060 |
+| Tree 2 (One split)  | 2 | 0.4683 |
+
+Here, Tree 2 fits the training data better because it has a smaller Residual Mean Deviance.
+
+**One important distinction**
+
+  - Gini index and cross-entropy: Primarily used to decide where to split a classification tree.
+  
+  - Residual Mean Deviance: Used to assess and compare the fit of trees after they have been constructed.
+  
+However, *a smaller training Residual Mean Deviance does not necessarily mean a better tree* for prediction. A complex tree may fit the training data very well but overfit.
+
+For choosing the best tree, we generally prefer *cross-validation error* or *test-set performance*, particularly when comparing trees with different numbers of terminal nodes.
+
+**Let's compare two different splits of the iris dataset and see which one produces a smaller Residual Mean Deviance.**
+
+We'll use:
+
+- Tree 2: `Petal.Length < 2.5` (our previous split)
+
+- Tree 3: `Petal.Width < 1.5` (a different split)
+
+Both trees have two terminal nodes, so this is a straightforward comparison.
+
+```{r}
+data(iris)
+
+# Function to calculate node deviance
+node_deviance <- function(y) {
+  counts <- table(y)
+  p <- counts / sum(counts)
+  -sum(counts[p > 0] * log(p[p > 0]))
+}
+
+# Function to calculate Residual Mean Deviance for a split
+calculate_rmd <- function(data, variable, cutoff) {
+
+  left_node <- data[data[[variable]] < cutoff, ]
+  right_node <- data[data[[variable]] >= cutoff, ]
+
+  n <- nrow(data)
+  T <- 2  # Two terminal nodes
+
+  total_deviance <-
+    node_deviance(left_node$Species) +
+    node_deviance(right_node$Species)
+
+  total_deviance / (n - T)
+}
+
+# Tree 2: Split using Petal.Length
+rmd_tree2 <- calculate_rmd(iris, "Petal.Length", 2.5)
+
+# Tree 3: Split using Petal.Width
+rmd_tree3 <- calculate_rmd(iris, "Petal.Width", 1.5)
+
+# Compare the trees
+comparison <- data.frame(
+  Tree = c("Tree 2", "Tree 3"),
+  Split = c("Petal.Length < 2.5",
+            "Petal.Width < 1.5"),
+  Terminal_Nodes = c(2, 2),
+  Residual_Mean_Deviance = c(rmd_tree2, rmd_tree3)
+)
+
+knitr::kable(comparison, digits = 4)
+```
+
+Now, Examine the splits
+
+It's also helpful to see which species are in each terminal node.
+
+```{r}
+# Tree 2
+table(
+  Node = ifelse(iris$Petal.Length < 2.5, "Left", "Right"),
+  Species = iris$Species
+)
+
+# Tree 3
+table(
+  Node = ifelse(iris$Petal.Width < 1.5, "Left", "Right"),
+  Species = iris$Species
+)
+```
+
+The split with the smaller Residual Mean Deviance produces purer terminal nodes and fits these training observations better according to the entropy-based measure.
+
+Because both trees have the same number of terminal nodes, the comparison is particularly easy to interpret.
+
+Which split would you choose based on Residual Mean Deviance? Does the composition of the terminal nodes explain your choice?
+
+
+
+
+
+
+
+# Bagging
+We can use the `ipred` package for bagging classification trees.
+
+```{r warning=FALSE, message=FALSE}
+# Load required libraries
+library(ipred)
+library(ggplot2)
+
+# Use the iris dataset
+data(iris)
+
+# Fit a bagging model
+set.seed(123)
+bag_model <- bagging(Species ~ ., data = iris, nbagg = 50)
+
+# Predict and evaluate accuracy
+pred_bag <- predict(bag_model, iris)
+mean(pred_bag == iris$Species)
+
+
+```
+
+
+#  Random Forest
+
+Use `randomForest` directly — it’s the most popular ensemble method.
+
+
+```{r warning=FALSE, message=FALSE}
+library(randomForest)
+
+set.seed(123)
+rf_model <- randomForest(Species ~ ., data = iris, ntree = 100, importance = TRUE)
+
+# Model summary
+print(rf_model)
+
+# Variable importance (randomForest style)
+
+
+varImpPlot(rf_model, main = "VIP") # Default
+
+# Fancy
+importance_df <- data.frame(Variable = rownames(importance(rf_model)),
+                            Importance = importance(rf_model)[,5])
+
+# Plot variable importance
+ggplot(importance_df, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  coord_flip() +
+  labs(title = "Variable Importance ",
+       x = "Variable", y = "MeanDecreaseGini")
+
+
+
+```
+
+
+
+For classification problems (like Species in the iris dataset):
+
+MeanDecreaseAccuracy – how much model accuracy drops when the variable’s values are randomly permuted.
+
+MeanDecreaseGini – how much each variable reduces node impurity (Gini index) across the forest.
+
+For regression problems:
+
+%IncMSE – percent increase in mean squared error when the variable is permuted.
+
+IncNodePurity – total decrease in residual sum of squares (RSS) from splits involving that variable.
+
+# Boosting
+
+We’ll use `gbm` (gradient boosting machine) for a simple demonstration.
+
+
+```{r warning=FALSE, message=FALSE}
+library(gbm)
+
+set.seed(123)
+# gbm requires numeric target, so we convert
+iris_boost <- iris
+iris_boost$Species <- as.numeric(iris$Species) - 1
+
+boost_model <- gbm(Species ~ ., data = iris_boost,
+                   distribution = "multinomial",
+                   n.trees = 200,
+                   interaction.depth = 3,
+                   shrinkage = 0.1,
+                   cv.folds = 5)
+
+# Summary gives variable importance
+summary(boost_model)
+
+# Plot training loss
+plot(boost_model$train.error, type = "l",
+     main = "Boosting Training Error",
+     xlab = "Number of Trees", ylab = "Error")
+
+```
+
+
+
+## Full R Demo — Bagging, Random Forest, and Boosting (with Visualization)
+
+```{r warning=FALSE, message=FALSE}
+# =========================================
+# Ensemble Methods Demo with Visualization
+# =========================================
+
+# Load required libraries
+library(ipred)
+library(randomForest)
+library(gbm)
+library(ggplot2)
+library(dplyr)
+
+# Prepare data
+data(iris)
+iris2 <- iris[, c("Petal.Length", "Petal.Width", "Species")]
+
+# Create a grid for plotting decision boundaries
+make_grid <- function(data, n = 200) {
+  x1 <- seq(min(data$Petal.Length), max(data$Petal.Length), length.out = n)
+  x2 <- seq(min(data$Petal.Width),  max(data$Petal.Width),  length.out = n)
+  grid <- expand.grid(Petal.Length = x1, Petal.Width = x2)
+  return(grid)
+}
+
+grid <- make_grid(iris2)
+
+# ==============================
+# 1️⃣ Bagging
+# ==============================
+set.seed(123)
+bag_model <- bagging(Species ~ ., data = iris2, nbagg = 50)
+grid$pred_bag <- predict(bag_model, grid)
+
+# ==============================
+# 2️⃣ Random Forest
+# ==============================
+set.seed(123)
+rf_model <- randomForest(Species ~ ., data = iris2, ntree = 100, importance = TRUE)
+grid$pred_rf <- predict(rf_model, grid)
+
+# Variable importance plot
+varImpPlot(rf_model, main = "Variable Importance - Random Forest")
+
+# ==============================
+# 3️⃣ Boosting
+# ==============================
+iris_boost <- iris2
+iris_boost$Species <- as.numeric(iris_boost$Species) - 1  # convert to numeric
+
+boost_model <- gbm(Species ~ ., data = iris_boost,
+                   distribution = "multinomial",
+                   n.trees = 200,
+                   interaction.depth = 3,
+                   shrinkage = 0.1,
+                   cv.folds = 5,
+                   verbose = FALSE)
+
+# Predict on grid (boosting)
+boost_pred <- predict(boost_model, newdata = grid, n.trees = 200, type = "response")
+grid$pred_boost <- factor(apply(boost_pred, 1, which.max) - 1,
+                          labels = levels(iris$Species))
+
+# ==============================
+# ✨ Visualization
+# ==============================
+plot_decision <- function(grid, model_col, title) {
+  ggplot(grid, aes(Petal.Length, Petal.Width)) +
+    geom_tile(aes(fill = !!sym(model_col)), alpha = 0.3) +
+    geom_point(data = iris2, aes(color = Species), size = 2) +
+    scale_fill_manual(values = c("#B3E5FC", "#C8E6C9", "#FFCDD2")) +
+    scale_color_manual(values = c("#0288D1", "#388E3C", "#D32F2F")) +
+    labs(title = title, fill = "Predicted Class", color = "Actual Species") +
+    theme_minimal()
+}
+
+p1 <- plot_decision(grid, "pred_bag", "Bagging Decision Boundary")
+p2 <- plot_decision(grid, "pred_rf", "Random Forest Decision Boundary")
+p3 <- plot_decision(grid, "pred_boost", "Boosting Decision Boundary")
+
+# Display plots
+p1
+p2
+p3
+
+```
+
+
+| Method            | Key Idea                                                          | Visual Interpretation                                                 |
+| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Bagging**       | Averages predictions of many trees built on bootstrapped samples. | Boundaries smoother than a single tree but may still have some noise. |
+| **Random Forest** | Adds random feature selection to decorrelate trees.               | Boundaries even smoother and more generalized.                        |
+| **Boosting**      | Sequentially fits trees to correct previous errors.               | Produces sharp, precise boundaries (can overfit with too many trees). |
+
+
+Summary Points 
+
+- Bagging reduces variance by averaging multiple trees.
+
+- Random Forest improves bagging by introducing randomness in feature selection.
+
+- Boosting builds trees sequentially, each correcting errors of the previous ones.
