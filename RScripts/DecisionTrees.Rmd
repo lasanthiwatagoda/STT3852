@@ -160,8 +160,12 @@ where \(p_k\) is the proportion of observations belonging to class \(k\) in the 
 
 A smaller classification error rate indicates a purer node. A value of zero means all observations belong to the same class.
 
+
+
+
 ```{r}
 # Calculate classification error rate at each node.
+
 node_results <- data.frame(
   Node = rownames(tree_model$frame),
   Observations = tree_model$frame$n,
@@ -182,12 +186,7 @@ library(rpart.plot)
 data(iris)
 
 # Classification tree using Gini index
-tree_gini <- rpart(
-  Species ~ .,
-  data = iris,
-  method = "class",
-  parms = list(split = "gini"),
-  control = rpart.control(cp = 0.01)
+tree_gini <- rpart(Species ~ .,data = iris,method = "class",parms = list(split = "gini"),control = rpart.control(cp = 0.01)
 )
 
 # Classification tree using Cross-Entropy
@@ -196,7 +195,7 @@ tree_entropy <- rpart(
   data = iris,
   method = "class",
   parms = list(split = "information"),
-  control = rpart.control(cp = 0.01)
+  control = rpart.control(cp = 0.01) # Use information for splitting when you are using cross entropy
 )
 
 # Plot the Gini tree
@@ -511,8 +510,11 @@ bag_model <- bagging(Species ~ ., data = iris, nbagg = 50)
 
 # Predict and evaluate accuracy
 pred_bag <- predict(bag_model, iris)
+pred_bag
+pred_bag == iris$Species
 mean(pred_bag == iris$Species)
 
+table(Actual = iris$Species, Predicted = pred_bag)
 
 ```
 
@@ -700,3 +702,351 @@ Summary Points
 - Random Forest improves bagging by introducing randomness in feature selection.
 
 - Boosting builds trees sequentially, each correcting errors of the previous ones.
+
+
+
+## Example - Comparing models - Regression setting
+
+```{r}
+
+library(rpart)
+library(ipred)
+library(randomForest)
+library(gbm)
+library(ggplot2)
+
+# ========================================
+# 1. Prepare the data
+# ========================================
+
+data(airquality)
+aq <- na.omit(airquality)
+
+set.seed(123)
+train_id <- sample(seq_len(nrow(aq)),
+                   size = floor(0.7 * nrow(aq)))
+
+train <- aq[train_id, ]
+test <- aq[-train_id, ]
+
+# ========================================
+# 2. Single Regression Tree
+# ========================================
+
+tree_model <- rpart(
+  Ozone ~ .,
+  data = train,
+  method = "anova",
+  control = rpart.control(cp = 0.01)
+)
+
+pred_tree <- predict(tree_model, newdata = test)
+
+# ========================================
+# 3. Bagging
+# ========================================
+
+set.seed(123)
+bag_model <- bagging(
+  Ozone ~ .,
+  data = train,
+  nbagg = 200
+)
+
+pred_bag <- predict(bag_model, newdata = test)
+
+# ========================================
+# 4. Random Forest
+# ========================================
+
+set.seed(123)
+rf_model <- randomForest(
+  Ozone ~ .,
+  data = train,
+  ntree = 200
+)
+
+pred_rf <- predict(rf_model, newdata = test)
+
+# ========================================
+# 5. Boosting
+# ========================================
+
+set.seed(123)
+boost_model <- gbm(
+  Ozone ~ .,
+  data = train,
+  distribution = "gaussian",
+  n.trees = 500,
+  interaction.depth = 2,
+  shrinkage = 0.05,
+  n.minobsinnode = 5,
+  cv.folds = 5,
+  verbose = FALSE
+)
+
+best_B <- gbm.perf(boost_model,
+                   method = "cv",
+                   plot.it = FALSE)
+
+pred_boost <- predict(
+  boost_model,
+  newdata = test,
+  n.trees = best_B
+)
+
+# ========================================
+# 6. Evaluation functions
+# ========================================
+
+RMSE <- function(actual, predicted) {
+  sqrt(mean((actual - predicted)^2))
+}
+
+MAE <- function(actual, predicted) {
+  mean(abs(actual - predicted))
+}
+
+R2 <- function(actual, predicted) {
+  1 - sum((actual - predicted)^2) /
+      sum((actual - mean(actual))^2)
+}
+
+# ========================================
+# 7. Compare all four models
+# ========================================
+
+results <- data.frame(
+  Model = c("Single Tree", "Bagging",
+            "Random Forest", "Boosting"),
+
+  RMSE = c(
+    RMSE(test$Ozone, pred_tree),
+    RMSE(test$Ozone, pred_bag),
+    RMSE(test$Ozone, pred_rf),
+    RMSE(test$Ozone, pred_boost)
+  ),
+
+  MAE = c(
+    MAE(test$Ozone, pred_tree),
+    MAE(test$Ozone, pred_bag),
+    MAE(test$Ozone, pred_rf),
+    MAE(test$Ozone, pred_boost)
+  ),
+
+  R2 = c(
+    R2(test$Ozone, pred_tree),
+    R2(test$Ozone, pred_bag),
+    R2(test$Ozone, pred_rf),
+    R2(test$Ozone, pred_boost)
+  )
+)
+
+# Rank by lowest RMSE
+results <- results[order(results$RMSE), ]
+
+print(results)
+
+# ========================================
+# 8. Visual comparison
+# ========================================
+
+ggplot(results,
+       aes(x = reorder(Model, RMSE),
+           y = RMSE)) +
+  geom_col(fill = "skyblue") +
+  coord_flip() +
+  labs(
+    title = "Regression Model Comparison",
+    x = "Model",
+    y = "Test RMSE (Lower is Better)"
+  ) +
+  theme_minimal()
+
+```
+
+## Comapring models - Classification setting
+
+Which method best predicts diabetes status: a single tree, bagging, random forest, or boosting?
+
+```{r}
+
+# ==========================================
+# Classification: Comparing Four Tree Models
+# Pima Diabetes Dataset
+# ==========================================
+
+library(MASS)
+library(rpart)
+library(ipred)
+library(randomForest)
+library(gbm)
+library(ggplot2)
+
+# ==========================================
+# 1. Load training and test datasets
+# ==========================================
+
+data(Pima.tr)
+data(Pima.te)
+
+train <- Pima.tr
+test  <- Pima.te
+
+# Explore the data
+head(train)
+table(train$type)
+
+# ==========================================
+# 2. Single Decision Tree
+# ==========================================
+
+set.seed(123)
+
+tree_model <- rpart(
+  type ~ .,
+  data = train,
+  method = "class",
+  control = rpart.control(cp = 0.01)
+)
+
+pred_tree <- predict(
+  tree_model, newdata = test, type = "class"
+)
+
+# ==========================================
+# 3. Bagging
+# ==========================================
+
+set.seed(123)
+
+bag_model <- bagging(
+  type ~ .,
+  data = train,
+  nbagg = 200
+)
+
+pred_bag <- predict(bag_model, newdata = test)
+
+# ==========================================
+# 4. Random Forest
+# ==========================================
+
+set.seed(123)
+
+rf_model <- randomForest(
+  type ~ .,
+  data = train,
+  ntree = 200,
+  importance = TRUE
+)
+
+pred_rf <- predict(rf_model, newdata = test)
+
+# ==========================================
+# 5. Boosting
+# ==========================================
+
+train_boost <- train
+train_boost$type <- as.numeric(train$type == "Yes")
+
+set.seed(123)
+
+boost_model <- gbm(
+  type ~ .,
+  data = train_boost,
+  distribution = "bernoulli",
+  n.trees = 500,
+  interaction.depth = 2,
+  shrinkage = 0.05,
+  n.minobsinnode = 5,
+  cv.folds = 5,
+  verbose = FALSE
+)
+
+# Select optimal number of trees
+best_B <- gbm.perf(
+  boost_model, method = "cv", plot.it = FALSE
+)
+
+# Predict probabilities
+boost_prob <- predict(
+  boost_model,
+  newdata = test,
+  n.trees = best_B,
+  type = "response"
+)
+
+# Convert probabilities to class labels
+pred_boost <- factor(
+  ifelse(boost_prob >= 0.5, "Yes", "No"),
+  levels = levels(test$type)
+)
+
+# ==========================================
+# 6. Compare the models
+# ==========================================
+
+accuracy <- function(pred) {
+  mean(pred == test$type)
+}
+
+sensitivity <- function(pred) {
+  sum(pred == "Yes" & test$type == "Yes") /
+    sum(test$type == "Yes")
+}
+
+results <- data.frame(
+  Model = c("Single Tree", "Bagging",
+            "Random Forest", "Boosting"),
+  Accuracy = c(
+    accuracy(pred_tree),
+    accuracy(pred_bag),
+    accuracy(pred_rf),
+    accuracy(pred_boost)
+  ),
+  Sensitivity = c(
+    sensitivity(pred_tree),
+    sensitivity(pred_bag),
+    sensitivity(pred_rf),
+    sensitivity(pred_boost)
+  )
+)
+
+results$ErrorRate <- 1 - results$Accuracy
+
+# Rank by accuracy
+results <- results[order(-results$Accuracy), ]
+
+print(results)
+
+# ==========================================
+# 7. Confusion matrices
+# ==========================================
+
+table(Actual = test$type, Predicted = pred_tree)
+table(Actual = test$type, Predicted = pred_bag)
+table(Actual = test$type, Predicted = pred_rf)
+table(Actual = test$type, Predicted = pred_boost)
+
+# ==========================================
+# 8. Visual comparison
+# ==========================================
+
+ggplot(results,
+       aes(x = reorder(Model, Accuracy),
+           y = Accuracy)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(
+    title = "Comparing Classification Methods",
+    subtitle = "Pima Diabetes Dataset",
+    x = "Model",
+    y = "Test Accuracy"
+  ) +
+  theme_minimal()
+
+
+```
+
