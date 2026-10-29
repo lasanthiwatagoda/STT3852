@@ -865,7 +865,7 @@ ggplot(results,
 
 ```
 
-## Comapring models - Classification setting
+## Comparing models - Classification setting
 
 Which method best predicts diabetes status: a single tree, bagging, random forest, or boosting?
 
