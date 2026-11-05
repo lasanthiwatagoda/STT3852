@@ -1,0 +1,385 @@
+---
+title: "PCA"
+author: "Dr. Lasanthi Watagoda"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: show
+    df_print: paged
+  pdf_document:
+    toc: true
+    highlight: tango
+    number_sections: true
+fontsize: 12pt
+linestretch: 1.3
+editor_options:
+  chunk_output_type: inline
+---
+
+# Toy example
+
+```{r warning=FALSE, comment=NA}
+library(ggplot2)
+library(grid)  # for arrow()
+
+# --- Step 1: Create simple 2-variable data ---
+X <- data.frame(
+  X1 = c(2, 4, 3, 5),
+  X2 = c(3, 6, 7, 8)
+)
+
+X
+```
+
+
+```{r warning=FALSE, comment=NA}
+# --- Step 2: Run PCA (standardize variables) ---
+pca <- prcomp(X, scale. = TRUE)
+
+# Extract components
+load <- as.data.frame(pca$rotation)  # loadings (PC directions)
+scores <- as.data.frame(pca$x)       # scores (coordinates in PC space)
+center <- colMeans(X)                # data mean
+
+# --- Step 3: Function to compute projection of each point onto PC1 line ---
+project_point <- function(x1, x2, load, center) {
+  v <- as.numeric(load[,1])                    # PC1 direction vector
+  x <- c(x1, x2) - center                      # center data
+  proj <- center + (sum(x * v) / sum(v * v)) * v  # projection point
+  data.frame(X1_proj = proj[1], X2_proj = proj[2])
+}
+
+# --- Step 4: Inspect PCA results ---
+# Loadings (directions of principal components)
+round(load, 4)
+
+# Scores (coordinates of each point in PC space)
+round(scores, 4)
+
+# Combine original data + projections for table
+data_table <- cbind(X, round(scores, 3))
+data_table
+
+
+proj_points <- do.call(
+  rbind,
+  apply(X, 1, function(row) project_point(row[1], row[2], load, center))
+)
+X_proj <- cbind(X, proj_points)
+```
+
+
+```{r warning=FALSE, comment=NA}
+# --- Step 4: Plot with PC1 axis and projections ---
+ggplot(X_proj, aes(x = X1, y = X2)) +
+  geom_point(size = 3, color = "steelblue") +
+  # Add projection lines
+  geom_segment(
+    aes(xend = X1_proj, yend = X2_proj),
+    color = "gray60", linetype = "dashed"
+  ) +
+  # Add PC1 axis (direction of maximum variance)
+  geom_abline(
+    intercept = center[2] - (load[2,1]/load[1,1]) * center[1],
+    slope = load[2,1]/load[1,1],
+    color = "darkred", linewidth = 1.2
+  ) +
+  geom_segment(
+    aes(
+      x = center[1],
+      y = center[2],
+      xend = center[1] + 2 * load[1,1],
+      yend = center[2] + 2 * load[2,1]
+    ),
+    color = "darkred",
+    arrow = arrow(length = unit(0.25, "cm"))
+  ) +
+  geom_text(aes(label = paste0("Obs", 1:4)), vjust = -1) +
+  labs(
+    title = "PCA: Data and First Principal Component (PC1)",
+    subtitle = "Gray dashed lines = projections (scores) on PC1 axis",
+    x = "X1", y = "X2"
+  ) +
+  coord_equal() +
+  theme_minimal()
+
+```
+
+# Example from the lecture note
+
+```{r warning=FALSE, comment=NA}
+# Data from the table (already centered)
+X1 <- c(-24,-23,-20,-19,-18,-15,-12,-9,-5,-2,  1, 5, 6,10,12, 9,21,23,25,28)
+X2 <- c(-21,-18,-12, -8, -6,  1,  0, 2, 1, 4,  0,13, 4, 5, 7, 9,10, 6, 2, 3)
+z_given <- c(-30.45,-28.32,-23.15,-20.61,-18.89,-14.12,-10.97,-7.42,-4.17,-0.21,
+              0.91,  9.84,  7.11, 11.17, 13.81, 18.27, 23.25, 23.46, 23.67, 26.82)
+
+# PC1 loadings (unit vector)
+phi1 <- c(0.9143, 0.4050)
+slope <- phi1[2] / phi1[1]  # ~0.443
+
+# Verify scores from loadings
+z_calc <- 0.9143 * X1 + 0.4050 * X2
+max_abs_diff <- max(abs(z_calc - z_given))
+round(max_abs_diff, 4)  # should be ~0 (just rounding)
+
+# Projection points onto PC1: since ||phi1||=1, proj = z * phi1
+X1_proj <- z_calc * phi1[1]
+X2_proj <- z_calc * phi1[2]
+
+# Plot
+library(ggplot2)
+library(grid) # for arrow()
+
+df <- data.frame(i = 1:20, X1, X2, z = z_calc, X1_proj, X2_proj)
+
+ggplot(df, aes(X1, X2)) +
+  geom_point(size = 3) +
+  # Perpendicular projection segments
+  geom_segment(aes(xend = X1_proj, yend = X2_proj), linetype = "dashed") +
+  # PC1 line through origin with slope = phi21/phi11
+  geom_abline(intercept = 0, slope = slope, linewidth = 1.2) +
+  # PC1 direction arrow (scaled for visibility)
+  geom_segment(aes(x = 0, y = 0,
+                   xend = 20 * phi1[1], yend = 20 * phi1[2]),
+               arrow = arrow(length = unit(0.25, "cm"))) +
+  labs(
+    title = "PC1 in the X1–X2 Plane (Centered Data)",
+    subtitle = "Dashed lines: perpendicular projections (scores) onto PC1",
+    x = "X1", y = "X2"
+  ) +
+  coord_equal() +
+  theme_minimal()
+
+```
+
+```{r warning=FALSE, comment=NA}
+# ---- Data (centered) -------------------------------------------------------
+X1 <- c(-24,-23,-20,-19,-18,-15,-12,-9,-5,-2,  1, 5, 6,10,12, 9,21,23,25,28)
+X2 <- c(-21,-18,-12, -8, -6,  1,  0, 2, 1, 4,  0,13, 4, 5, 7, 9,10, 6, 2, 3)
+i_obs <- 12  # which point to highlight
+
+# ---- PC1 loadings (given) + normalize (fixes rounding issue) ---------------
+phi1 <- c(0.9143, 0.4050)
+phi1 <- phi1 / sqrt(sum(phi1^2))   # force unit length
+
+# ---- PC2 loadings: orthonormal companion to PC1 ----------------------------
+phi2 <- c(-phi1[2], phi1[1])       # rotate by +90°
+phi2 <- phi2 / sqrt(sum(phi2^2))   # (already unit, but keep tidy)
+
+# Slopes for drawing lines through origin
+slope1 <- ifelse(abs(phi1[1]) < 1e-12, Inf, phi1[2]/phi1[1])
+slope2 <- ifelse(abs(phi2[1]) < 1e-12, Inf, phi2[2]/phi2[1])
+
+# ---- Scores and projection points ------------------------------------------
+z1 <- phi1[1]*X1 + phi1[2]*X2
+z2 <- phi2[1]*X1 + phi2[2]*X2
+
+X1_proj_pc1 <- z1 * phi1[1]
+X2_proj_pc1 <- z1 * phi1[2]
+X1_proj_pc2 <- z2 * phi2[1]
+X2_proj_pc2 <- z2 * phi2[2]
+
+df <- data.frame(
+  i = seq_along(X1), X1, X2, z1, z2,
+  X1_proj_pc1, X2_proj_pc1,
+  X1_proj_pc2, X2_proj_pc2
+)
+
+# ---- Build layer for PC2 line safely (handles vertical line) ---------------
+library(ggplot2)
+library(grid)  # for arrow()
+
+pc2_line_layer <-
+  if (is.finite(slope2)) {
+    geom_abline(intercept = 0, slope = slope2, linewidth = 1.2, linetype = "longdash")
+  } else {
+    geom_vline(xintercept = 0, linewidth = 1.2, linetype = "longdash")
+  }
+
+# ---- Plot 1: PC1 with all projections --------------------------------------
+p1 <- ggplot(df, aes(X1, X2)) +
+  geom_point(size = 3) +
+  geom_segment(aes(xend = X1_proj_pc1, yend = X2_proj_pc1),
+               linetype = "dashed", color = "gray50") +
+  {
+    if (is.finite(slope1)) geom_abline(intercept = 0, slope = slope1, linewidth = 1.2)
+    else geom_vline(xintercept = 0, linewidth = 1.2)
+  } +
+  geom_segment(aes(x = 0, y = 0,
+                   xend = 25*phi1[1], yend = 25*phi1[2]),
+               arrow = arrow(length = unit(0.25, "cm"))) +
+  coord_equal() +
+  labs(
+    title = "PC1 in the X1–X2 Plane (Centered Data)",
+    subtitle = "Dashed lines: perpendicular projections (scores) onto PC1",
+    x = "X1", y = "X2"
+  ) +
+  theme_minimal()
+
+ggsave("Projection.png", p1, width = 7, height = 5, dpi = 300)
+
+# ---- Plot 2: PC1 and PC2 + obs 12 projections ------------------------------
+p2 <- ggplot(df, aes(X1, X2)) +
+  geom_point(size = 3) +
+  geom_point(data = subset(df, i == i_obs), color = "red", size = 3) +
+  geom_segment(data = subset(df, i == i_obs),
+               aes(xend = X1_proj_pc1, yend = X2_proj_pc1),
+               linetype = "dashed", color = "red") +
+  geom_segment(data = subset(df, i == i_obs),
+               aes(xend = X1_proj_pc2, yend = X2_proj_pc2),
+               linetype = "dotted", color = "red") +
+  {
+    if (is.finite(slope1)) geom_abline(intercept = 0, slope = slope1, linewidth = 1.2)
+    else geom_vline(xintercept = 0, linewidth = 1.2)
+  } +
+  geom_segment(aes(x = 0, y = 0,
+                   xend = 25*phi1[1], yend = 25*phi1[2]),
+               arrow = arrow(length = unit(0.25, "cm"))) +
+  pc2_line_layer +
+  geom_segment(aes(x = 0, y = 0,
+                   xend = 25*phi2[1], yend = 25*phi2[2]),
+               arrow = arrow(length = unit(0.25, "cm")), linetype = "longdash") +
+  coord_equal() +
+  labs(
+    title = "PC1 and PC2 as Orthogonal Axes",
+    subtitle = paste0("Obs ", i_obs,
+                      ": z1 = ", round(df$z1[i_obs], 5),
+                      ", z2 = ", round(df$z2[i_obs], 5)),
+    x = "X1", y = "X2"
+  ) +
+  theme_minimal()
+
+ggsave("PC1_PC2.png", p2, width = 7, height = 5, dpi = 300)
+
+p2
+# Optional: view scores for the highlighted observation
+df[df$i == i_obs, c("i","z1","z2")]
+
+```
+
+# Biplot for 3 Variable Example In the Note
+
+```{r}
+# --- 1) Enter your 20-row dataset (X1, X2, z1_given) ------------------------
+X1 <- c(-24,-23,-20,-19,-18,-15,-12,-9,-5,-2,  1,  5,  6, 10, 12,  9, 21, 23, 25, 28)
+X2 <- c(-21,-18,-12, -8, -6,  1,  0,  2,  1,  4,  0, 13,  4,  5,  7,  9, 10,  6,  2,  3)
+z1_given <- c(-30.45,-28.32,-23.15,-20.61,-18.89,-14.12,-10.97,-7.42,-4.17,-0.21,
+               0.91,   9.84,  7.11, 11.17, 13.81, 18.27, 23.25, 23.46, 23.67, 26.82)
+
+dat <- data.frame(i = 1:20, X1, X2, z1_given)
+
+# --- 2) Add a simple third variable X3 (deterministic, no randomness) -------
+# Make X3 a smooth combination so it's interpretable on the biplot.
+dat$X3 <- round(0.6*dat$X1 + 0.4*dat$X2)
+
+# --- 3) PCA on standardized variables (so units don't dominate) ------------
+X <- dat[, c("X1","X2","X3")]
+pca <- prcomp(X, scale. = TRUE)
+
+# Loadings (variables -> PCs) and scores (observations in PC space)
+loadings <- as.data.frame(pca$rotation[, 1:2])
+colnames(loadings) <- c("PC1_loading","PC2_loading")
+loadings$Variable <- rownames(loadings)
+
+scores <- as.data.frame(pca$x[, 1:2])
+colnames(scores) <- c("PC1_score","PC2_score")
+scores$Obs <- dat$i
+
+# --- 4) (Optional) Compare your provided z1 with PC1_from_given_loadings ----
+# If you want to verify z1_given using your earlier loadings (0.9143, 0.4050),
+# note: that z1 was computed for centered data. We'll center then apply them.
+phi1 <- c(0.9143, 0.4050); phi1 <- phi1 / sqrt(sum(phi1^2))
+X12_centered <- scale(dat[, c("X1","X2")], center = TRUE, scale = FALSE)
+z1_from_phi1 <- as.numeric(X12_centered %*% phi1)  # PC1 via given loadings
+dat$z1_from_phi1 <- z1_from_phi1
+dat$z1_diff <- round(dat$z1_given - dat$z1_from_phi1, 4)  # small diffs expected
+
+# --- 5) Nicely formatted tables for notes (if knitting Rmd) -----------------
+if (requireNamespace("knitr", quietly = TRUE)) {
+  knitr::kable(dat[, c("i","X1","X2","X3","z1_given")],
+               caption = "Original Data with Constructed X3 and Provided PC1 Scores (z1).")
+  knitr::kable(loadings[, c("Variable","PC1_loading","PC2_loading")],
+               digits = 3, caption = "Principal Component Loadings (PC1, PC2) on standardized variables.")
+  knitr::kable(scores[, c("Obs","PC1_score","PC2_score")],
+               digits = 3, caption = "Principal Component Scores (PC1, PC2).")
+} else {
+  print(dat); print(loadings); print(scores)
+}
+
+# --- 6) Biplot (Base R) -----------------------------------------------------
+# scale=0: arrows scaled to match scores spread (good for interpretation)
+png("biplot_base.png", width = 900, height = 700, res = 150)
+biplot(pca, choices = 1:2, scale = 0, cex = 0.9, xlab = "PC1", ylab = "PC2")
+title("Biplot (Base R): Scores and Variable Loadings (standardized variables)")
+dev.off()
+
+# --- 7) Biplot (ggplot) with clear arrows and labels ------------------------
+library(ggplot2)
+library(grid)  # for arrow()
+
+scores_df <- data.frame(PC1 = pca$x[,1], PC2 = pca$x[,2], label = paste0("p", dat$i))
+loads_df  <- data.frame(var = rownames(pca$rotation),
+                        PC1 = pca$rotation[,1], PC2 = pca$rotation[,2])
+
+# Scale loadings to fit the score cloud
+arrow_scale <- 0.9 * max(abs(c(scores_df$PC1, scores_df$PC2)))
+loads_df$PC1s <- loads_df$PC1 * arrow_scale
+loads_df$PC2s <- loads_df$PC2 * arrow_scale
+
+p <- ggplot() +
+  geom_point(data = scores_df, aes(PC1, PC2), size = 2.7) +
+  geom_text(data = scores_df, aes(PC1, PC2, label = label),
+            nudge_y = 0.12, size = 3.4) +
+  geom_segment(data = loads_df,
+               aes(x = 0, y = 0, xend = PC1s, yend = PC2s),
+               arrow = arrow(length = unit(0.25, "cm")),
+               linewidth = 0.8, color = "firebrick") +
+  geom_text(data = loads_df,
+            aes(PC1s, PC2s, label = var),
+            color = "firebrick", vjust = -0.6, fontface = "bold") +
+  geom_hline(yintercept = 0, linewidth = 0.3, linetype = "dashed") +
+  geom_vline(xintercept = 0, linewidth = 0.3, linetype = "dashed") +
+  coord_equal() +
+  labs(title = "Biplot (ggplot): PC Scores and Variable Loadings",
+       subtitle = "Variables standardized (scale.=TRUE in prcomp). Arrows show loading directions.",
+       x = "PC1", y = "PC2") +
+  theme_minimal(base_size = 12)
+
+ggsave("biplot_ggplot.png", p, width = 7.5, height = 6, dpi = 300)
+
+p
+```
+
+# Scree Plot for 3 Variable Example in the Note:
+
+```{r}
+# --- Simulate the same 2-variable, 20-point example ---
+X
+
+# --- Step 1: Run PCA (standardize = FALSE because data is already centered) ---
+pca <- prcomp(X, scale. = TRUE)
+
+# --- Step 2: Compute proportion of variance explained ---
+pve <- (pca$sdev^2) / sum(pca$sdev^2)
+
+# --- Step 3: Create scree plot ---
+plot(pve,
+     xlab = "Principal Component",
+     ylab = "Proportion of Variance Explained",
+     type = "b", pch = 19, lwd = 2,
+     main = "Scree Plot: 3-Variable PCA Example")
+lines(pve, lwd = 2)
+abline(v = 2, col = "gray60", lty = 2)
+text(1, pve[1] + 0.02, labels = paste0(round(pve[1] * 100, 1), "%"), cex = 0.9)
+text(2, pve[2] + 0.02, labels = paste0(round(pve[2] * 100, 1), "%"), cex = 0.9)
+text(3, pve[3] + 0.02, labels = paste0(round(pve[3] * 100, 1), "%"), cex = 0.9)
+
+
+```
+
+
